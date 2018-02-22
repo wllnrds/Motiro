@@ -9,11 +9,9 @@ class UsersController extends AppController
     $this->set(compact('users'));
   }
 
-  public function view($id){
-    $this->loadComponent('Paginator');
-    $users = $this->Paginator->paginate($this->Users->find());
+  public function view($id = null){
     $user = $this->Users->get($id);
-    $this->set(compact('user'));
+    $this->set(['result' => $user]);
   }
 
   public function add(){
