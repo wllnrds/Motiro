@@ -1,12 +1,18 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-
-class CalendarsTable extends Table
+class RolesTable extends Table
 {
-    public function initialize(array $config)
-    {
-        //$this->addBehavior('Timestamp');
-    }
+  public function initialize(array $config)
+  {
+    parent::initialize($config);
+    $this->table('roles');
+    $this->displayField('label');
+    $this->primaryKey('id');
+    $this->addBehavior('Timestamp');
+    $this->hasMany('Users', ['foreignKey' => 'role_id']);
+  }
 }

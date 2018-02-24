@@ -1,19 +1,19 @@
 <?php
 namespace App\Controller;
 
-class UsersController extends AppController
+class RolesController extends AppController
   {
     public function index(){
-    $usuarios = $this->Users->find()->all();
-    $this->set(compact('usuarios'));
+    $roles = $this->Roles->find()->all();
+    $this->set(compact('roles'));
   }
 
   public function add()
   {
-    $user = $this->Users->newEntity();
+    $role = $this->Roles->newEntity();
     if($this->request->is('post')){
-      $user = $this->Users->patchEntity($user, $this->request->data);
-      if($this->Users->save($user)){
+      $role = $this->Roles->patchEntity($role, $this->request->data);
+      if($this->Roles->save($role)){
         $this->Flash->success('Usuário cadastrado com sucesso');
         return $this->redirect(['action'=>'index']);
       }
@@ -21,18 +21,16 @@ class UsersController extends AppController
         $this->Flash->error('Erro ao cadastrar usuário');
       }
     }
-    $roles = $this->Users->Roles->find('list', ['limit'=>200]);
-    $this->set(compact('user', 'roles'));
-    $this->set('_serialize', ['user']);
+    $this->set(compact('role'));
   }
 
   public function edit($id=null)
   {
     $this->loadComponent('Paginator');
-    $user = $this->Users->get($id);
+    $role = $this->Roles->get($id);
     if($this->request->is(['post', 'put'])){
-      $user = $this->Users->patchEntity($user, $this->request->data);
-      if($this->Users->save($user)){
+      $role = $this->Roles->patchEntity($role, $this->request->data);
+      if($this->Roles->save($role)){
         $this->Flash->success('Usuário editado com sucesso');
         return $this->redirect(['action' => 'index']);
       }
@@ -40,15 +38,13 @@ class UsersController extends AppController
         $this->Flash->error('Usuário não foi editado com sucesso');
       }
     }
-    $roles = $this->Users->Roles->find('list', ['limit'=>200]);
-    $this->set(compact('user', 'roles'));
-    $this->set('_serialize', ['user']);
+    $this->set(compact('role'));
   }
 
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
-    $user = $this->Users->get($id);
-    if($this->Users->delete($user))
+    $role = $this->Roles->get($id);
+    if($this->Roles->delete($role))
     {
       $this->Flash->success('Usuário apagado com sucesso');
     }
@@ -60,7 +56,7 @@ class UsersController extends AppController
   }
 
   public function view($id = null){
-    $user = $this->Users->get($id);
-    $this->set(['result' => $user]);
+    $role = $this->Roles->get($id);
+    $this->set(['result' => $role]);
   }
 }

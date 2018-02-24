@@ -19,7 +19,15 @@ echo $this->Html->link(__('Cadastrar'), ['action' => 'add']);
       <th><?php echo $usuario->username; ?></th>
       <th><?php echo $usuario->role_id; ?></th>
       <th>
-        Ver Editar Apagar
+        <?php
+        echo $this->Html->link(('Ver'), ['action' => 'view', $usuario->id]);
+        ?>
+        <?php
+        echo $this->Html->link(('Editar'), ['action' => 'edit', $usuario->id]);
+        ?>
+        <?php
+        echo $this->Form->postLink(('Apagar'),['action' => 'remove', $usuario->id], ['confirm' => ('Realmente quer apagar o usuário?'), $usuario->id]);
+        ?>
       </th>
     </tr>
   <?php endforeach; ?>

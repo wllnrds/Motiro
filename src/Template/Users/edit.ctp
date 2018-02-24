@@ -1,9 +1,9 @@
-<h1>Editar</h1>
+<h1>Editar Usuário</h1>
 <?php
-    echo $this->Form->create($user);
-    // Hard code the user for now.
-    echo $this->Form->control('username');
-    echo $this->Form->control('password');
-    echo $this->Form->button(__('Save Article'));
-    echo $this->Form->end();
+  echo $this->Form->create($user);
+  echo $this->Form->control('username');
+  echo $this->Form->control('password');
+  echo $this->Form->control('role_id');
+  echo $this->Form->button('Editar');
+  echo $this->Form->end();
 ?>
