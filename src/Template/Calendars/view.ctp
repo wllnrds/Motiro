@@ -1,7 +1,8 @@
-<h1>Usuário</h1>
+<h1>Visualizar Calendário</h1>
 <ul>
-  <li><?php echo "ID: " . $result->id; ?></li>
-  <li><?php echo "Código: " . $result->code; ?></li>
-  <li><?php echo "Nome: " . $result->name; ?></li>
-  <li><?php echo "Descrição: " . $result->description; ?></li>
+  <li><?php echo $result->id; ?></li>
+  <li><?php echo $result->code; ?></li>
+  <li><?php echo $result->name; ?></li>
+  <li><?php echo $result->description; ?></li>
+  <li><?php echo $result->type; ?></li>
 </ul>

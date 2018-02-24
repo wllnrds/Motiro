@@ -1,10 +1,9 @@
-<h1>Editar</h1>
+<h1>Editar Evento</h1>
 <?php
-    echo $this->Form->create($calendar);
-    // Hard code the calendar for now.
-    echo $this->Form->control('code');
-    echo $this->Form->control('name');
-    echo $this->Form->control('description');
-    echo $this->Form->button(__('Save Article'));
-    echo $this->Form->end();
+  echo $this->Form->create($event);
+  echo $this->Form->control('code');
+  echo $this->Form->control('label');
+  echo $this->Form->control('description');
+  echo $this->Form->button('Editar');
+  echo $this->Form->end();
 ?>

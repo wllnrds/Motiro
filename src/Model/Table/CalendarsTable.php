@@ -1,12 +1,21 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-
 class CalendarsTable extends Table
 {
     public function initialize(array $config)
     {
-        //$this->addBehavior('Timestamp');
+      parent::initialize($config);
+      $this->table('calendars');
+      $this->displayField('id');
+      $this->primaryKey('id');
+      $this->addBehavior('Timestamp');
+      $this->belongsTo('Types', [
+          'foreignKey' => 'types_id',
+          'joinType' => 'INNER'
+      ]);
     }
 }

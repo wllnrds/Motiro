@@ -1,10 +1,9 @@
-<h1>Editar</h1>
+<h1>Editar Agendamento</h1>
 <?php
-    echo $this->Form->create($calendar);
-    // Hard code the calendar for now.
-    echo $this->Form->control('code');
-    echo $this->Form->control('name');
-    echo $this->Form->control('description');
-    echo $this->Form->button(__('Save Article'));
-    echo $this->Form->end();
+  echo $this->Form->create($schedule);
+  echo $this->Form->control('begin');
+  echo $this->Form->control('end');
+  echo $this->Form->control('event_id');
+  echo $this->Form->button('Editar');
+  echo $this->Form->end();
 ?>

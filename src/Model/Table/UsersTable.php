@@ -22,6 +22,4 @@ class UsersTable extends Table
       ]);
 
     }
-
-
 }

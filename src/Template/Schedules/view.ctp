@@ -1,7 +1,7 @@
-<h1>Usuário</h1>
+<h1>Visualizar Agendamentos</h1>
 <ul>
-  <li><?php echo "ID: " . $result->id; ?></li>
-  <li><?php echo "Código: " . $result->code; ?></li>
-  <li><?php echo "Nome: " . $result->name; ?></li>
-  <li><?php echo "Descrição: " . $result->description; ?></li>
+  <li><?php echo $result->id; ?></li>
+  <li><?php echo $result->begin; ?></li>
+  <li><?php echo $result->end; ?></li>
+  <li><?php echo $result->event_id; ?></li>
 </ul>
