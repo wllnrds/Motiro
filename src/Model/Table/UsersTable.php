@@ -9,17 +9,6 @@ class UsersTable extends Table
     public function initialize(array $config)
     {
       parent::initialize($config);
-
-      $this->table('users');
-      $this->displayField('id');
-      $this->primaryKey('id');
-
-      $this->addBehavior('Timestamp');
-
-      $this->belongsTo('Roles', [
-          'foreignKey' => 'roles_id',
-          'joinType' => 'INNER'
-      ]);
-
+      $this->belongsTo('Roles');
     }
 }

@@ -9,13 +9,9 @@ class CalendarsTable extends Table
     public function initialize(array $config)
     {
       parent::initialize($config);
-      $this->table('calendars');
-      $this->displayField('name');
-      $this->primaryKey('id');
-      $this->addBehavior('Timestamp');
-      $this->belongsTo('Types', [
-          'foreignKey' => 'types_id',
-          'joinType' => 'INNER'
+      $this->belongsTo('Types');
+      $this->belongsToMany('Schedules', [
+        'through' => 'SchedulesCalendars',
       ]);
     }
 }

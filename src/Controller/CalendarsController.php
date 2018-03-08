@@ -62,6 +62,35 @@ class CalendarsController extends AppController
 
   public function view($id = null){
     $calendar = $this->Calendars->get($id);
-    $this->set(['result' => $calendar]);
+
+
+    $this->loadModel('Schedules');
+    $this->loadModel('Types');
+
+    $start = new \DateTime('-15 days');
+    $end = new \DateTime('+15 days');
+
+    $start->setTime( 0, 0 );
+    $end->setTime( 23, 59 );
+
+    $schedules = $this->Schedules->find('all' , ['contain' => ['Calendars', 'Events']])
+      ->leftJoinWith('Calendars')
+      ->where([
+        'Calendars.id' => $id,
+        'Schedules.begin >' => $start,
+        'Schedules.begin <' => $end,
+      ])
+      ->order(['Schedules.begin'=>"ASC"]);
+
+    $_types = $this->Types->find('all')->all();
+    $types;
+
+    foreach ($_types as $type) {
+      $types[$type->id] = strtolower($type->slug);
+    }
+
+    $this->set(compact('schedules'));
+    $this->set(compact('types'));
+    $this->set(compact('calendar'));
   }
 }

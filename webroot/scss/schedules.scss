@@ -1,0 +1,115 @@
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  & > [class^="col-"],
+  & > [class*=" col-"] {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+}
+
+$density: 5px;
+$font-size: 10px;
+$line-height: 16px;
+
+// COMEÇO COLUNA DE CARDS
+
+.card-columns {
+  @media (min-width: 576px) { column-count: 2; }
+  @media (min-width: 768px) { }
+  @media (min-width: 992px) { column-count: 3; }
+  @media (min-width: 1200px) { column-count: 4; }
+  @media (min-width: 1600px) { column-count: 5; }
+}
+
+// FIM COLUNA DE CARDS
+
+$bullet-types: (
+  default: #323232,
+  instrutor: #007ef2,
+  ambiente: #8700ff,
+  curso: #f64200
+);
+
+.schedules-group{
+  padding: 15px 0;
+}
+
+.schedule-item{
+  display: block;
+  padding: $density;
+  border-radius: 2px;
+  color: #333;
+  background-color: #e6e3e3;
+  text-decoration: none;
+
+  &+&{
+    margin-top: 5px;
+  }
+
+  &:hover{
+    background-color: #cdcdcd;
+  }
+
+  &.active{
+    background-color: #d2ff57;
+
+    &:hover{
+      background-color: #b8ec29;
+    }
+  }
+
+  &.ended{
+    opacity: 0.5;
+  }
+
+
+  .time-stamp{
+    width: 30px;
+    display: inline-block;
+    font-size: 8px;
+    line-height: 10px;
+    font-weight: 400;
+    float: left;
+  }
+
+  .content{
+    background: #ffffff;
+    margin-left: 30px;
+    padding: $density;
+    border-radius: 2px;
+    line-height: $line-height;
+    font-size: $font-size;
+    font-weight: 400;
+
+    i{
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    .bullet-item{
+      line-height: ($line-height - 2);
+      height: ($line-height - 2);
+      margin: 1px;
+      padding: 0 $density;
+      background-color: #333333;
+      color: #ffffff;
+      display: inline-block;
+      border-radius: 4px;
+      text-decoration: none;
+
+      @each $label, $color in $bullet-types {
+        &.b-#{$label}{
+          background-color: $color;
+        }
+      }
+
+
+
+      &:hover{
+        opacity: 0.7;
+      }
+    }
+  }
+}

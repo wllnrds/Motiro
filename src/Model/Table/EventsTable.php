@@ -8,11 +8,7 @@ class EventsTable extends Table
 {
   public function initialize(array $config)
   {
-    parent::initialize($config);
-    $this->table('events');
-    $this->displayField('label');
-    $this->primaryKey('id');
-    $this->addBehavior('Timestamp');
-    $this->hasMany('Schedules', ['foreignKey' => 'event_id']);
+    parent::initialize($config);    
+    $this->hasMany('Schedules');
   }
 }
