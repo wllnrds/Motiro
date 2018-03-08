@@ -21,5 +21,13 @@ class SchedulesTable extends Table
           'joinType' => 'INNER'
       ]);
 
+      $this->belongsToMany('Calendars',[
+        'joinTable' => 'schedules_calendars',
+        'foreignKey' => 'schedule_id',
+        'targetForeignKey'=>'calendar_id'
+      ]);
+
+
+
     }
 }

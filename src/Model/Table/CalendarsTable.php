@@ -10,7 +10,7 @@ class CalendarsTable extends Table
     {
       parent::initialize($config);
       $this->table('calendars');
-      $this->displayField('id');
+      $this->displayField('name');
       $this->primaryKey('id');
       $this->addBehavior('Timestamp');
       $this->belongsTo('Types', [

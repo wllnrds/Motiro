@@ -22,6 +22,9 @@ class SchedulesController extends AppController
       }
     }
     $events = $this->Schedules->Events->find('list', ['limit'=>200]);
+    $calendars = $this->Schedules->Calendars->find('list');
+
+    $this->set(compact('calendars', 'calendars'));
     $this->set(compact('schedule', 'events'));
     $this->set('_serialize', ['schedule']);
   }
