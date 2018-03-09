@@ -1,26 +1,72 @@
-<div class="schedules-group">
-  <div class="card-columns flex-rows">
+<?php $this->start('sidebar'); ?>
 
-  <?php foreach($schedules as $schedule): ?>
-    <div class="card" id="schedule-<?= $schedule->id ?>">
-      <div class="schedule-item <?= $schedule->active ?>">
-        <div class="time-stamp">
-            <?php
-              $begin = new DateTime($schedule->begin);
-              $end = new DateTime($schedule->end);
-              if(isset($calendar)){  echo $begin->format('d M') .'<br />'; }
-              echo $begin->format('H:i') .'<br />'. $end->format('H:i');
-            ?>
+<div id="calendar-sidebar"></div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#calendar-sidebar').fullCalendar({
+      themeSystem: 'bootstrap4',
+      contentHeight: 'auto',
+      header: {
+        left: 'prev',
+        center: 'title',
+        right: 'next'
+      },
+      dayClick: function(date, jsEvent, view){
+        window.location = "<?= $this->Url->build('/', true) ?>ver/" + date.format();
+      }
+    });
+  });
+</script>
+
+<?php $this->end(); ?>
+
+<div class="sub-line">
+  <?php
+    $months = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+    $today = new \DateTime('now');
+    if($today->format('d-m-Y') == $date->format('d-m-Y')){
+      echo '<b>HOJE</b>, ';
+    }
+
+    echo $date->format('d \d\e ') . $months[$date->format('n')-1] . $date->format(' \d\e Y') ?>
+</div>
+
+<!-- <section class="block-content">
+  <header class="header">
+    <h2 class="title">Recursos Alocados</h2>
+  </header>
+  <section class="card-columns flex-rows">
+    <div class="card border-0">
+      <div class="amount-resource">
+        <div class="amout-graphic t-instrutor">
+          <span class="dot p25"></span>
+          <span class="dot p50"></span>
+          <span class="dot p75"></span>
+          <span class="bar" style="width:85%;"></span>
         </div>
-        <div class="content">
-          <a href="<?= $this->Url->build([ "controller" => "Events", "action" => "view", $schedule->event->id]) ?>"><?= $schedule->event->label ?> <?= $schedule->ordering ?> </a>
-          <?php foreach($schedule->calendars as $calendar): ?>
-          <a href="<?= $this->Url->build([ "controller" => "Calendars", "action" => "view", $calendar->id]) ?>" class="bullet-item b-<?= $types[$calendar->type_id] ?>" title="<?= $calendar->name ?>"><?= $calendar->name ?></a>
-          <?php endforeach; ?>
-        </div>
+        <div class="amout-caption">Calendários ativos // <b>Instrutor</b></div>
       </div>
     </div>
-  <?php endforeach; ?>
+    <div class="card border-0">
+      <div class="amount-resource">
+        <div class="amout-graphic t-ambiente">
+          <span class="dot p25"></span>
+          <span class="dot p50"></span>
+          <span class="dot p75"></span>
+          <span class="bar" style="width:10%;"></span>
+        </div>
+        <div class="amout-caption">Calendários ativos // <b>AMBIENTE</b></div>
+      </div>
+    </div>
+  </section>
+</section> -->
 
-  </div>
-</div>
+<section class="block-content">
+  <header class="header">
+    <h2 class="title">Agendamentos</h2>
+  </header>
+  <section>
+    <?= $this->cell('Schedules', [ $date->format('Y-m-d H:i:s') ]);?>
+  </section>
+</section>

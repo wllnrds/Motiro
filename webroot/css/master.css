@@ -1,13 +1,28 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
+.calendarfull h2 {
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0px;
+	padding: 0px;
+}
+
 body {
 	margin: 0;
 	padding: 0;
 	color: #333333;
 	background: #fbfbfb;
-	font-family: "Open Sans", sans-serif;
+	font-family: "Segoe Ui", sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1;
+}
+
+h2 {
+	font-size: 14px !important;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0px;
+	padding: 0px;
 }
 
 #top-header {
@@ -124,6 +139,124 @@ body {
 	padding-top: 15px;
 }
 
+.sub-line {
+	font-size: 14px;
+	border-bottom: 2px solid #e6e3e3;
+	padding: 15px 0 13px;
+}
+
+.block-content {
+	padding: 15px 0;
+}
+
+.block-content .header .title {
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0px;
+	padding: 0px;
+}
+
+.amount-resource {
+	padding: 10px 0;
+}
+
+.amount-resource b {
+	font-weight: 800;
+}
+
+.amount-resource .amout-graphic {
+	width: 100%;
+	height: 22px;
+	border: 1px solid #111111;
+	border-radius: 20px;
+	margin-bottom: 5px;
+	position: relative;
+	overflow: hidden;
+}
+
+.amount-resource .amout-graphic .dot {
+	position: absolute;
+	z-index: 999;
+	top: 0px;
+	width: 1px;
+	height: 50%;
+	background-color: #111111;
+	transform: translateX(-50%);
+}
+
+.amount-resource .amout-graphic .dot.p25 {
+	left: 25%;
+}
+
+.amount-resource .amout-graphic .dot.p50 {
+	left: 50%;
+}
+
+.amount-resource .amout-graphic .dot.p75 {
+	left: 75%;
+}
+
+.amount-resource .amout-graphic .bar {
+	height: 100%;
+	background-color: #333333;
+	display: block;
+}
+
+.amount-resource .amout-graphic.t-default {
+	border-color: #191919;
+}
+
+.amount-resource .amout-graphic.t-default .dot {
+	border-color: #191919;
+}
+
+.amount-resource .amout-graphic.t-default .bar {
+	background-color: #323232;
+}
+
+.amount-resource .amout-graphic.t-instrutor {
+	border-color: #0063bf;
+}
+
+.amount-resource .amout-graphic.t-instrutor .dot {
+	border-color: #0063bf;
+}
+
+.amount-resource .amout-graphic.t-instrutor .bar {
+	background-color: #007ef2;
+}
+
+.amount-resource .amout-graphic.t-ambiente {
+	border-color: #6c00cc;
+}
+
+.amount-resource .amout-graphic.t-ambiente .dot {
+	border-color: #6c00cc;
+}
+
+.amount-resource .amout-graphic.t-ambiente .bar {
+	background-color: #8700ff;
+}
+
+.amount-resource .amout-graphic.t-curso {
+	border-color: #c33400;
+}
+
+.amount-resource .amout-graphic.t-curso .dot {
+	border-color: #c33400;
+}
+
+.amount-resource .amout-graphic.t-curso .bar {
+	background-color: #f64200;
+}
+
+.amount-resource .amout-caption {
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+}
+
 .row.no-gutters {
 	margin-right: 0;
 	margin-left: 0;
@@ -199,6 +332,22 @@ body {
 	line-height: 10px;
 	font-weight: 400;
 	float: left;
+	text-transform: uppercase;
+}
+
+.schedule-item .time-stamp i {
+	padding-bottom: 2px;
+	display: block;
+	font-style: normal;
+	font-size: 8px;
+	opacity: 0.5;
+}
+
+.schedule-item .time-stamp b {
+	font-weight: 900;
+	font-size: 9px;
+	display: block;
+	line-height: 9px;
 }
 
 .schedule-item .content {
@@ -209,6 +358,7 @@ body {
 	line-height: 16px;
 	font-size: 10px;
 	font-weight: 400;
+	min-height: 48px;
 }
 
 .schedule-item .content i {

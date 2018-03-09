@@ -12,4 +12,15 @@ class TypesTable extends Table
   {
     $this->hasMany('Calendars');
   }
+
+  public function getArray(){
+    $_types = $this->find('all')->all();
+    $types;
+
+    foreach ($_types as $type) {
+      $types[$type->id] = strtolower($type->slug);
+    }
+
+    return $types;
+  }
 }

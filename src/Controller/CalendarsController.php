@@ -62,35 +62,31 @@ class CalendarsController extends AppController
 
   public function view($id = null){
     $calendar = $this->Calendars->get($id);
+    $this->set(compact('calendar'));
+  }
 
+  public $components = array('RequestHandler');
+  public function load($id){
+    $this->response->type('json');
 
+    $color = ['#323232', '#007ef2', '#8700ff', '#f64200', '#323232'];
+    $date_begin = $this->request->getQuery('start');
+    $date_end = $this->request->getQuery('end');
+
+    $calendar = $this->Calendars->get($id);
     $this->loadModel('Schedules');
-    $this->loadModel('Types');
-
-    $start = new \DateTime('-15 days');
-    $end = new \DateTime('+15 days');
-
-    $start->setTime( 0, 0 );
-    $end->setTime( 23, 59 );
-
-    $schedules = $this->Schedules->find('all' , ['contain' => ['Calendars', 'Events']])
-      ->leftJoinWith('Calendars')
-      ->where([
-        'Calendars.id' => $id,
-        'Schedules.begin >' => $start,
-        'Schedules.begin <' => $end,
-      ])
-      ->order(['Schedules.begin'=>"ASC"]);
-
-    $_types = $this->Types->find('all')->all();
-    $types;
-
-    foreach ($_types as $type) {
-      $types[$type->id] = strtolower($type->slug);
+    $schedules = $this->Schedules->getSchedulesByCalendar($calendar->id, $date_begin, $date_end);
+    $json = [];
+    foreach ($schedules as $schedule) {
+      $json[] = [
+        'title' => '[' . $schedule->event->code . '] '. $schedule->event->label . ' ' . $schedule->ordering,
+        'start' => $schedule->begin->format('Y-m-d H:i:s'),
+        'end' => $schedule->end->format('Y-m-d H:i:s'),
+        'backgroundColor' => $color[$calendar->type_id]
+      ];
     }
 
-    $this->set(compact('schedules'));
-    $this->set(compact('types'));
-    $this->set(compact('calendar'));
+    $this->set(compact('json'));
+    $this->set('_serialize', 'json');
   }
 }

@@ -1,8 +1,15 @@
-<h1>Visualizar Evento</h1>
-<ul>
-  <li><?php echo $result->id; ?></li>
-  <li><?php echo $result->code; ?></li>
-  <li><?php echo $result->label; ?></li>
-  <li><?php echo $result->description; ?></li>
-  <li><?php echo $result->test; ?></li>
-</ul>
+<section class="block-content">
+  <header class="header">
+    <h2 class="title"><b>[<?= $event->code ?>]</b> <?= $event->label ?></h2>
+    <p><?= $event->description ?></p>
+
+    <hr />
+
+    <a class="btn btn-primary" href="<?= $this->Url->build(["controller" => "Schedules", "action" => "add", $event->id]) ?>">Adicionar Agendamento</a>
+  </header>
+
+  <section>
+    <?= $this->cell('Events', [$event->id]);?>
+  </section>
+
+</section>

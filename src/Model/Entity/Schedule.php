@@ -39,7 +39,6 @@ class Schedule extends Entity
       return 'waiting';
     }
 
-
     private function indexOf($data){
       $index = 0;
       foreach($data as $item){
@@ -52,5 +51,4 @@ class Schedule extends Entity
 
       return -1;
     }
-
 }

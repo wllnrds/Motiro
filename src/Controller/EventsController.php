@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Controller;
+
 class EventsController extends AppController
   {
     public function index(){
@@ -57,6 +59,7 @@ class EventsController extends AppController
 
   public function view($id = null){
     $event = $this->Events->get($id);
-    $this->set(['result' => $event]);
+    // $this->loadModel('Schedules');
+    $this->set(compact('event'));
   }
 }
