@@ -4,7 +4,7 @@
 <hr>
 
 <?php $this->Form->setTemplates([ 'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>' ]); ?>
-<?= $this->Form->create('Event') ?>
+<?= $this->Form->create($events) ?>
 
 <div class="form-row">
   <div class="form-group col-md-2">

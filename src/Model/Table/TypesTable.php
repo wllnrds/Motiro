@@ -11,6 +11,7 @@ class TypesTable extends Table
   public function initialize(array $config)
   {
     $this->hasMany('Calendars');
+    $this->displayField('description');
   }
 
   public function getArray(){

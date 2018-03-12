@@ -1,12 +1,23 @@
 <?php
 namespace App\Controller;
 
-class CalendarsController extends AppController
-  {
-    public function index(){
+class CalendarsController extends AppController{
+  public function index(){
+    $search = $this->request->getQuery('search');
 
-    $calendarios = $this->Calendars->find()->all();
-    $this->set(compact('calendarios'));
+    $calendars;
+    if($search != null){
+      $calendars = $this->Calendars->find('all')
+        ->where(['name LIKE' => $search])
+        ->order(['type_id' => "ASC"])->all();
+    }else{
+      $calendars = $this->Calendars->find()->order(['type_id' => "ASC"])->all();
+    }
+    $this->set(compact('calendars'));
+
+    $this->loadModel('Types');
+    $types = $this->Types->getArray();
+    $this->set(compact('types'));
   }
 
   public function add()
@@ -22,7 +33,7 @@ class CalendarsController extends AppController
         $this->Flash->error('Erro ao cadastrar calendário');
       }
     }
-    $types = $this->Calendars->Types->find('list', ['limit'=>200]);
+    $types = $this->Calendars->Types->find('list')->all();
     $this->set(compact('calendar', 'types'));
     $this->set('_serialize', ['calendar']);
   }
