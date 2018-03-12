@@ -15,7 +15,7 @@ class TypesTable extends Table
 
   public function getArray(){
     $_types = $this->find('all')->all();
-    $types;
+    $types = [];
 
     foreach ($_types as $type) {
       $types[$type->id] = strtolower($type->slug);
