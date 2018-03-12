@@ -23,6 +23,7 @@ h2 {
 	text-transform: uppercase;
 	margin: 0px;
 	padding: 0px;
+	line-height: 30px;
 }
 
 #top-header {
@@ -139,6 +140,11 @@ h2 {
 	padding-top: 15px;
 }
 
+.table .table-description {
+	margin: 5px 0px 0px;
+	font-size: 12px;
+}
+
 .sub-line {
 	font-size: 14px;
 	border-bottom: 2px solid #e6e3e3;
@@ -155,6 +161,10 @@ h2 {
 	text-transform: uppercase;
 	margin: 0px;
 	padding: 0px;
+}
+
+.block-content .text-description {
+	padding: 15px 0;
 }
 
 .amount-resource {

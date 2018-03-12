@@ -15,6 +15,7 @@ h2{
   text-transform: uppercase;
   margin: 0px;
   padding: 0px;
+  line-height: 30px;
 }
 
 $theme_color: #c5cfd4;
@@ -137,4 +138,11 @@ $bullet-types: (
 
 #home-container{
   padding-top: 15px;
+}
+
+.table{
+  .table-description{
+    margin: 5px 0px 0px;
+    font-size: 12px;
+  }
 }

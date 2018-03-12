@@ -17,7 +17,7 @@ class EventsController extends AppController
       $event = $this->Events->patchEntity($event, $this->request->data);
       if($this->Events->save($event)){
         $this->Flash->success('Evento cadastrado com sucesso');
-        return $this->redirect(['action'=>'index']);
+        return $this->redirect(['action'=>'view', $event->id]);
       }
       else{
         $this->Flash->error('Erro ao cadastrar evento');

@@ -8,7 +8,7 @@ class EventsTable extends Table
 {
   public function initialize(array $config)
   {
-    parent::initialize($config);    
+    parent::initialize($config);
     $this->hasMany('Schedules');
   }
 }

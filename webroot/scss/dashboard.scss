@@ -16,6 +16,10 @@
       padding: 0px;
     }
   }
+
+  .text-description{
+    padding: 15px 0;
+  }
 }
 
 .amount-resource{
@@ -61,7 +65,7 @@
       &.t-#{$label}{
         border-color: darken($color, 10%);
         .dot{
-          border-color: darken($color, 10%);          
+          border-color: darken($color, 10%);
         }
         .bar{
           background-color: $color;

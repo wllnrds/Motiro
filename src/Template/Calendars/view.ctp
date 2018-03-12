@@ -1,3 +1,5 @@
+<?php $this->layout('Page'); ?>
+
 <section class="block-content">
   <header class="header">
     <h2 class="title"><b>[<?= $calendar->code ?>]</b> <?= $calendar->name ?></h2>
@@ -14,7 +16,6 @@
     $(document).ready(function(){
       $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
-        contentHeight: 600,
         header: {
           left: 'prev,next today',
           center: 'title',
