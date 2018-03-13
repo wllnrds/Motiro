@@ -14,7 +14,7 @@
             <div class="col">
               <form class="form-inline d-inline">
                 <div class="input-group">
-                  <input type="text" class="form-control form-control-sm" placeholder="Buscar Calendário" aria-label="Buscar Calendário" name="search">
+                  <input type="text" class="form-control form-control-sm" placeholder="Buscar Calendário" value="<?= $search ?>" aria-label="Buscar Calendário" name="search">
                   <div class="input-group-append">
                     <button class="btn btn-dark btn-sm" type="submit">Buscar</button>
                   </div>

@@ -30,6 +30,7 @@ class EventsController extends AppController
   {
     $this->loadComponent('Paginator');
     $event = $this->Events->get($id);
+
     if($this->request->is(['post', 'put'])){
       $event = $this->Events->patchEntity($event, $this->request->data);
       if($this->Events->save($event)){
@@ -40,6 +41,11 @@ class EventsController extends AppController
         $this->Flash->error('Evento não foi editado com sucesso');
       }
     }
+
+    $this->loadModel('Calendars');
+    $calendars = $this->Calendars->find('list');
+    $this->set(compact('calendars'));
+
     $this->set(compact('event'));
   }
 

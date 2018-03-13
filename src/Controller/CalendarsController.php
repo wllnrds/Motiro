@@ -2,14 +2,18 @@
 namespace App\Controller;
 
 class CalendarsController extends AppController{
+
   public function index(){
     $search = $this->request->getQuery('search');
 
     $calendars;
     if($search != null){
-      $calendars = $this->Calendars->find('all')
-        ->where(['name LIKE' => $search])
-        ->order(['type_id' => "ASC"])->all();
+      $calendars = $this->Calendars->find('all', [
+        'conditions' => ['OR' => [
+          'name LIKE' => '%' . $search . '%',
+          'code LIKE' => '%' . $search . '%'
+          ]]
+      ])->order(['type_id' => "ASC"]);
     }else{
       $calendars = $this->Calendars->find()->order(['type_id' => "ASC"])->all();
     }
@@ -18,6 +22,7 @@ class CalendarsController extends AppController{
     $this->loadModel('Types');
     $types = $this->Types->getArray();
     $this->set(compact('types'));
+    $this->set(compact('search'));
   }
 
   public function add()
@@ -76,7 +81,7 @@ class CalendarsController extends AppController{
     $this->set(compact('calendar'));
   }
 
-  public $components = array('RequestHandler');
+
   public function load($id){
     $this->response->type('json');
 
@@ -99,5 +104,31 @@ class CalendarsController extends AppController{
 
     $this->set(compact('json'));
     $this->set('_serialize', 'json');
+  }
+
+  public function getCalendars(){
+    if ($this->request->is('ajax')) {
+        $this->autoRender = false;
+        $name = $this->request->query['term'];
+        $results = $this->Calendars->find('all', [
+            'conditions' => [ 'OR' => [
+                'name LIKE' => '%' . $name . '%',
+                'code LIKE' => '%' . $name . '%',
+            ]]
+        ]);
+
+
+        $this->loadModel('Types');
+        $types = $this->Types->getArray();
+
+        $resultsArr = [];
+        foreach ($results as $result) {
+           $resultsArr[] = [
+             'value' => $result['id'],
+             'label' => $result['name'],
+             'type' => $types[$result['type_id']];
+        }
+        echo json_encode($resultsArr);
+    }
   }
 }

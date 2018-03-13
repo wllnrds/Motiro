@@ -97,27 +97,33 @@ $line-height: 16px;
       font-weight: 300;
       font-style: normal;
     }
+  }
+}
 
-    .bullet-item{
-      line-height: ($line-height - 2);
-      height: ($line-height - 2);
-      margin: 1px;
-      padding: 0 $density;
-      background-color: #333333;
-      color: #ffffff;
-      display: inline-block;
-      border-radius: 4px;
-      text-decoration: none;
+.bullet-item{
+  line-height: 1;
+  height: auto;
+  margin: 1px;
+  padding: $density;
+  background-color: #333333;
+  color: #ffffff;
+  display: inline-block;
+  border-radius: 4px;
+  text-decoration: none;
 
-      @each $label, $color in $bullet-types {
-        &.b-#{$label}{
-          background-color: $color;
-        }
-      }
-
+  @each $label, $color in $bullet-types {
+    &.b-#{$label}{
+      background-color: $color;
       &:hover{
-        opacity: 0.7;
+        background-color: darken($color, 5%);
+        opacity: 1;
       }
     }
+  }
+
+  &:hover{
+    opacity: 0.7;
+    color: #ffffff;
+    text-decoration: none;
   }
 }

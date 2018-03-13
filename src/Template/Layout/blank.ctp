@@ -11,6 +11,7 @@
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css('bootstrap.min.css') ?>
+    <?= $this->Html->css('bootstrap-tagsinput.css') ?>
     <?= $this->Html->css('fullcalendar.min.css') ?>
     <?= $this->Html->css('master.css') ?>
 
