@@ -120,15 +120,18 @@ class CalendarsController extends AppController{
 
         $this->loadModel('Types');
         $types = $this->Types->getArray();
+        $this->response->type('application/json');
 
         $resultsArr = [];
         foreach ($results as $result) {
-           $resultsArr[] = [
-             'value' => $result['id'],
+           $resultsArr [] = [
+             'value' => (string)$result['id'],
              'label' => $result['name'],
-             'type' => $types[$result['type_id']];
+             'type' => $types[$result['type_id']],
+             'key' => $result['code'] . ' - ' . $result['name']
+           ];
         }
-        echo json_encode($resultsArr);
+        echo json_encode(['data' => $resultsArr]);
     }
   }
 }

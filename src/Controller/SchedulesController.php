@@ -13,9 +13,10 @@ class SchedulesController extends AppController
     $schedule = $this->Schedules->newEntity();
     if($this->request->is('post')){
       $schedule = $this->Schedules->patchEntity($schedule, $this->request->data);
+
       if($this->Schedules->save($schedule)){
         $this->Flash->success('Agendamento cadastrado com sucesso');
-        return $this->redirect(['action'=>'index']);
+        //return $this->redirect(['action'=>'index']);
       }
       else{
         $this->Flash->error('Erro ao cadastrar agendamento');

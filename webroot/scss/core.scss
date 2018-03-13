@@ -28,6 +28,19 @@ $bullet-types: (
   curso: #f64200
 );
 
+@each $label, $color in $bullet-types {
+  .color-#{$label}{
+    background: none !important;
+    border: none !important;
+    background-color: $color !important;
+    color: #ffffff !important;
+
+    &:hover{
+      background-color: darken($color, 5%)  !important;
+    }
+  }
+}
+
 #top-header{
   background-color: $theme_color;
   padding: 20px 0;

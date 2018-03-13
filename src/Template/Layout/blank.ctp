@@ -11,12 +11,15 @@
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css('bootstrap.min.css') ?>
-    <?= $this->Html->css('bootstrap-tagsinput.css') ?>
     <?= $this->Html->css('fullcalendar.min.css') ?>
     <?= $this->Html->css('master.css') ?>
+    <?= $this->Html->css('selectize.css') ?>
+    <?= $this->Html->css('selectize.default.css') ?>
 
-    <?= $this->Html->script('jquery-3.3.1.min.js') ?>
+    <?= $this->Html->script('jquery.min.js') ?>
     <?= $this->Html->script('fontawesome-all.min.js') ?>
+    <?= $this->Html->script('selectize.js') ?>
+    <?= $this->Html->script('jquery.mask.min.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -75,6 +78,11 @@
           setTimeout(100, realtime);
         }
         realtime();
+
+        $(document).ready(function(){
+          $('.mask-date').mask('00/00/0000', {placeholder: "dd/mm/aaaa"});
+          $('.mask-time').mask('00:00', {placeholder: "hh:mm"});
+        });
       </script>
       <?= $this->Html->script('moment.js') ?>
       <?= $this->Html->script('fullcalendar.min.js') ?>

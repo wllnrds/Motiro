@@ -26,6 +26,50 @@ h2 {
 	line-height: 30px;
 }
 
+.color-default {
+	background: none !important;
+	border: none !important;
+	background-color: #323232 !important;
+	color: #ffffff !important;
+}
+
+.color-default:hover {
+	background-color: #252525 !important;
+}
+
+.color-instrutor {
+	background: none !important;
+	border: none !important;
+	background-color: #007ef2 !important;
+	color: #ffffff !important;
+}
+
+.color-instrutor:hover {
+	background-color: #0071d9 !important;
+}
+
+.color-ambiente {
+	background: none !important;
+	border: none !important;
+	background-color: #8700ff !important;
+	color: #ffffff !important;
+}
+
+.color-ambiente:hover {
+	background-color: #7a00e6 !important;
+}
+
+.color-curso {
+	background: none !important;
+	border: none !important;
+	background-color: #f64200 !important;
+	color: #ffffff !important;
+}
+
+.color-curso:hover {
+	background-color: #dd3b00 !important;
+}
+
 #top-header {
 	background-color: #c5cfd4;
 	padding: 20px 0;

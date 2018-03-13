@@ -6,7 +6,7 @@
         <th style="width: 120px;">Data</th>
         <th class="text-center" style="width: 80px;">Início</th>
         <th class="text-center" style="width: 80px;">Fim</th>
-        <th>Calendários associados</th>
+        <th style="min-width:200px;">Calendários associados</th>
         <th style="width: 200px;">Ações</th>
       </tr>
     </thead>
@@ -17,17 +17,20 @@
           $end = new DateTime($schedule->end);
         ?>
         <tr>
-          <td class="align-middle"><?= $begin->format('d') . '/' . $begin->format('m') . '/' . $begin->format('Y') ?></td>
-          <td class="align-middle text-center"><?= $begin->format('H:i') ?></td>
-          <td class="align-middle text-center"><?= $end->format('H:i') ?></td>
+          <td class="align-middle text-nowrap"><?= $begin->format('d') . '/' . $begin->format('m') . '/' . $begin->format('Y') ?></td>
+          <td class="align-middle text-center text-nowrap"><?= $begin->format('H:i') ?></td>
+          <td class="align-middle text-center text-nowrap"><?= $end->format('H:i') ?></td>
           <td class="align-middle">
             <?php foreach($schedule->calendars as $calendar): ?>
               <a href="<?= $this->Url->build([ "controller" => "Calendars", "action" => "view", $calendar->id]) ?>" class="bullet-item b-<?= $types[$calendar->type_id] ?>" title="<?= $calendar->name ?>"><?= $calendar->name ?></a>
             <?php endforeach; ?>
           </td>
-          <td class="align-middle">
-            <a href="<?= $this->Url->build([ "controller" => "Events", "action" => "edit", $schedule->id]) ?>" class="btn btn-sm btn-primary">Editar</a>
-            <a href="<?= $this->Url->build([ "controller" => "Events", "action" => "remove", $schedule->id]) ?>" class="btn btn-sm btn-danger">Excluir</a>
+          <td class="align-middle text-nowrap">
+            <a href="<?= $this->Url->build([ "controller" => "Events", "action" => "editschedule", $schedule->event_id, $schedule->id]) ?>" class="btn btn-sm btn-primary">Editar</a>
+            <?= $this->Form->postLink(
+                ('Excluir'),
+                ['controller' => 'Events', 'action' => 'removeschedule', $schedule->id, $schedule->event_id],
+                ['confirm' => ('Realmente quer apagar o agendamento?'), 'class'=>'btn btn-sm btn-danger' , $schedule->id]) ?>
           </td>
         </tr>
       <?php endforeach; ?>

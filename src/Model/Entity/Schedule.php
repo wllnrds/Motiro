@@ -23,6 +23,24 @@ class Schedule extends Entity
         return '(' . $this->indexOf($result) . '/' . sizeof($result) . ')';
     }
 
+    protected function _getCalendarsIds()
+    {
+        $id = $this->_properties['id'];
+
+        $data = TableRegistry::get('SchedulesCalendars');
+        $result = $data->find()
+          ->select(['calendar_id'])
+          ->where(['SchedulesCalendars.schedule_id' => $id])->toArray();
+
+        $array = [];
+
+        foreach ($result as $index) {
+          $array[] = (string)$index->calendar_id;
+        }
+
+        return $array;
+    }
+
     protected function _getActive()
     {
       $now = new \DateTime('now');
