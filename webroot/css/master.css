@@ -17,7 +17,7 @@ body {
 	line-height: 1;
 }
 
-h2 {
+h2, h3, h4 {
 	font-size: 14px !important;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -205,6 +205,15 @@ h2 {
 	text-transform: uppercase;
 	margin: 0px;
 	padding: 0px;
+}
+
+.block-content .header .subtitle {
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0px;
+	padding: 0px;
+	color: #005bc9;
 }
 
 .block-content .text-description {

@@ -15,7 +15,7 @@ class RolesController extends AppController
       $role = $this->Roles->patchEntity($role, $this->request->data);
       if($this->Roles->save($role)){
         $this->Flash->success('Usuário cadastrado com sucesso');
-        return $this->redirect(['action'=>'index']);
+        return $this->redirect(['controller' => 'Settings']);
       }
       else{
         $this->Flash->error('Erro ao cadastrar usuário');
@@ -32,7 +32,7 @@ class RolesController extends AppController
       $role = $this->Roles->patchEntity($role, $this->request->data);
       if($this->Roles->save($role)){
         $this->Flash->success('Usuário editado com sucesso');
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Settings']);
       }
       else{
         $this->Flash->error('Usuário não foi editado com sucesso');
