@@ -7,7 +7,21 @@
           <h2 class="title">Lista de Eventos</h2>
         </div>
         <div class="col-12 col-md-6 text-left text-md-right">
-          <?= $this->Html->link(__('Cadastrar'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']); ?>
+          <div class="row">
+            <div class="col">
+              <?= $this->Html->link(__('Novo Evento'), ['action' => 'add'], ['class' => 'btn btn-success btn-sm']); ?>
+            </div>
+            <div class="col">
+              <form class="form-inline d-inline">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm" placeholder="Buscar Evento" value="<?= $search ?>" aria-label="Buscar Evento" name="search">
+                  <div class="input-group-append">
+                    <button class="btn btn-dark btn-sm" type="submit">Buscar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
     </div>
 

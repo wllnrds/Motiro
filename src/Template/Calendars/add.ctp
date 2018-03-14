@@ -30,7 +30,7 @@
       </div>
       <div class="w-100"></div>
       <div class="form-group col">
-        <?= $this->Form->button('Cadastrar', ['class' => 'btn btn-primary']) ?>
+        <?= $this->Form->button('Salvar', ['class' => 'btn btn-primary']) ?>
       </div>
     </div>
 

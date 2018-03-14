@@ -9,7 +9,7 @@
         <div class="col-12 col-md-6 text-left text-md-right">
           <div class="row">
             <div class="col">
-              <?= $this->Html->link(__('Adicionar'), ['controller' => 'Users','action' => 'add'], ['class' => 'btn btn-primary btn-sm']); ?>
+              <?= $this->Html->link(__('Novo Usuário'), ['controller' => 'Users','action' => 'add'], ['class' => 'btn btn-success btn-sm']); ?>
             </div>
           </div>
         </div>

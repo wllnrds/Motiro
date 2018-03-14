@@ -20,8 +20,10 @@ class CalendarsController extends AppController{
     $this->set(compact('calendars'));
 
     $this->loadModel('Types');
-    $types = $this->Types->getArray();
+    $types = $this->Types->find()->all();
+    $_types = $this->Types->getArray();
     $this->set(compact('types'));
+    $this->set(compact('_types'));
     $this->set(compact('search'));
   }
 

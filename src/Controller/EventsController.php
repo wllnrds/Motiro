@@ -3,11 +3,24 @@ namespace App\Controller;
 
 use App\Controller;
 
-class EventsController extends AppController
-  {
-    public function index(){
-    $events = $this->Events->find()->all();
+class EventsController extends AppController{
+  public function index(){
+
+    $search = $this->request->getQuery('search');
+
+    $events;
+    if($search != null){
+      $events = $this->Events->find('all', [
+        'conditions' => ['OR' => [
+          'code LIKE' => '%' . $search . '%',
+          'label LIKE' => '%' . $search . '%'
+          ]]
+      ]);
+    }else{
+      $events = $this->Events->find()->all();
+    }
     $this->set(compact('events'));
+    $this->set(compact('search'));
   }
 
   public function add()

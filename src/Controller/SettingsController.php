@@ -9,5 +9,10 @@ class SettingsController extends Controller
       $this->loadModel('Roles');
       $roles = $this->Roles->find()->all();
       $this->set(compact('roles'));
+
+
+      $this->loadModel('Types');
+      $types = $this->Types->find()->all();
+      $this->set(compact('types'));
   }
 }

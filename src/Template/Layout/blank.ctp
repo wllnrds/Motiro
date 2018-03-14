@@ -17,6 +17,8 @@
     <?= $this->Html->css('selectize.default.css') ?>
 
     <?= $this->Html->script('jquery.min.js') ?>
+    <?= $this->Html->script('popper.min.js') ?>
+    <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('fontawesome-all.min.js') ?>
     <?= $this->Html->script('selectize.js') ?>
     <?= $this->Html->script('jquery.mask.min.js') ?>

@@ -9,7 +9,7 @@
         <div class="col-12 col-md-6 text-left text-md-right">
           <div class="row">
             <div class="col">
-              <?= $this->Html->link(__('Cadastrar'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm']); ?>
+              <?= $this->Html->link(__('Novo Calendário'), ['action' => 'add'], ['class' => 'btn btn-success btn-sm']); ?>
             </div>
             <div class="col">
               <form class="form-inline d-inline">
@@ -27,42 +27,61 @@
 
     <hr />
   </header>
-
-  <section class="sub-block-content">
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">COD</th>
-            <th scope="col">Nome</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach($calendars as $calendar): ?>
+  <ul class="nav nav-pills mb-3">
+    <?php foreach($types as $type): ?>
+    <li class="nav-item">
+      <a class="nav-link" href="#calendar-<?= $type->slug ?>" data-toggle="tab"><?= $type->description ?></a>
+    </li>
+    <?php endforeach; ?>
+  </ul>
+  <div class="tab-content">
+    <?php foreach($types as $type): ?>
+    <div class="tab-pane" id="calendar-<?= $type->slug ?>">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark">
             <tr>
-              <th class="text-nowrap" style="width:100px;"><?php echo $calendar->code; ?></th>
-              <td>
-                <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
-                <p class="table-description">
-                   <b><?= $types[$calendar->type_id] ?></b> - <?= $calendar->description ?>
-                </p>
-              </td>
-              <td class="text-nowrap text-right" style="width:200px;">
-                <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "edit", $calendar->id]) ?>" class="btn btn-primary btn-sm">editar</a>
-                <?= $this->Form->postLink('apagar',
-                  ['action' => 'remove', $calendar->id],
-                  ['class' => 'btn btn-outline-danger btn-sm'],
-                  ['confirm' => ('Realmente quer apagar o calendário?'), $calendar->id]
-                  )
-                ?>
-              </td>
+              <th scope="col">COD</th>
+              <th scope="col">Nome</th>
+              <th scope="col"></th>
             </tr>
-          <?php endforeach; ?>
+          </thead>
+          <tbody>
+            <?php foreach($calendars as $calendar):
+              if($calendar->type_id == $type->id): ?>
+              <tr>
+                <th class="text-nowrap" style="width:100px;"><?php echo $calendar->code; ?></th>
+                <td>
+                  <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
+                  <p class="table-description">
+                     <b><?= $_types[$calendar->type_id] ?></b> - <?= $calendar->description ?>
+                  </p>
+                </td>
+                <td class="text-nowrap text-right" style="width:200px;">
+                  <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "edit", $calendar->id]) ?>" class="btn btn-primary btn-sm">editar</a>
+                  <?= $this->Form->postLink('apagar',
+                    ['action' => 'remove', $calendar->id],
+                    ['class' => 'btn btn-outline-danger btn-sm'],
+                    ['confirm' => ('Realmente quer apagar o calendário?'), $calendar->id]
+                    )
+                  ?>
+                </td>
+              </tr>
+            <?php
+              endif;
+              endforeach;
+            ?>
+            </tbody>
           </tbody>
-        </tbody>
-      </table>
+        </table>
+      </div>
     </div>
-  </section>
-
+    <?php endforeach; ?>
+  </div>
 </section>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.nav-pills a:first').tab('show');
+  })
+</script>
