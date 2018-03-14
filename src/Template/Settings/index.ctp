@@ -23,7 +23,6 @@
       <hr />
     </header>
     <section>
-
       <div class="table-responsive">
         <table class="table table-striped">
           <thead class="thead-dark">
@@ -35,13 +34,13 @@
           </thead>
           <tbody>
             <?php foreach ($roles as $role): ?>
-              <tr>                
+              <tr>
                 <td><?= $role->label ?></td>
                 <td><?= $role->description ?></td>
                 <td class="text-nowrap text-right" style="width:200px;">
                   <a href="<?= $this->Url->build(["controller" => "Roles", "action" => "edit", $role->id]) ?>" class="btn btn-primary btn-sm">editar</a>
                   <?= $this->Form->postLink('excluir',
-                    ['action' => 'remove', $role->id],
+                    ['controller' => 'Roles', 'action' => 'remove', $role->id],
                     ['class' => 'btn btn-outline-danger btn-sm'],
                     ['confirm' => ('Realmente quer apagar o calendário?'), $role->id]) ?>
                 </td>

@@ -4,8 +4,12 @@ namespace App\Controller;
 class UsersController extends AppController
   {
     public function index(){
-    $usuarios = $this->Users->find()->all();
-    $this->set(compact('usuarios'));
+    $users = $this->Users->find()->all();
+    $this->set(compact('users'));
+
+    $this->loadModel('Roles');
+    $roles = $this->Roles->getArray();
+    $this->set(compact('roles'));
   }
 
   public function add()

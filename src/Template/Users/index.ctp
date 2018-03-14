@@ -1,35 +1,49 @@
-<h2>Lista de usuários</h2>
-<?php
-echo $this->Html->link(__('Cadastrar'), ['action' => 'add']);
-?>
-<br />
-<br />
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Permissão</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php foreach($usuarios as $usuario): ?>
-    <tr>
-      <th><?php echo $usuario->id; ?></th>
-      <th><?php echo $usuario->username; ?></th>
-      <th><?php echo $usuario->role_id; ?></th>
-      <th>
-        <?php
-        echo $this->Html->link(('Ver'), ['action' => 'view', $usuario->id]);
-        ?>
-        <?php
-        echo $this->Html->link(('Editar'), ['action' => 'edit', $usuario->id]);
-        ?>
-        <?php
-        echo $this->Form->postLink(('Apagar'),['action' => 'remove', $usuario->id], ['confirm' => ('Realmente quer apagar o usuário?'), $usuario->id]);
-        ?>
-      </th>
-    </tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
+<?php $this->layout('Page') ?>
+
+<section class="block-content">
+  <header class="header">
+    <div class="row">
+        <div class="col-12 col-md-6 text-left text-md-left">
+          <h3 class="subtitle">Usuários</h3>
+        </div>
+        <div class="col-12 col-md-6 text-left text-md-right">
+          <div class="row">
+            <div class="col">
+              <?= $this->Html->link(__('Adicionar'), ['controller' => 'Users','action' => 'add'], ['class' => 'btn btn-primary btn-sm']); ?>
+            </div>
+          </div>
+        </div>
+    </div>
+    <hr />
+  </header>
+
+  <section class="sub-block-content">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Usuário</th>
+            <th scope="col">Papel</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($users as $user): ?>
+            <tr>
+              <td><?= $user->username ?></td>
+              <td><?= $roles[$user->role_id] ?></td>
+              <td class="text-nowrap text-right" style="width:200px;">
+                <a href="<?= $this->Url->build(["controller" => "Users", "action" => "edit", $user->id]) ?>" class="btn btn-primary btn-sm">editar</a>
+                <?= $this->Form->postLink('excluir',
+                  ['action' => 'remove', $user->id],
+                  ['class' => 'btn btn-outline-danger btn-sm'],
+                  ['confirm' => ('Realmente quer apagar o calendário?'), $user->id]) ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
