@@ -17,7 +17,7 @@ class EventsController extends AppController
       $event = $this->Events->patchEntity($event, $this->request->data);
       if($this->Events->save($event)){
         $this->Flash->success('Evento cadastrado com sucesso');
-        return $this->redirect(['action'=>'view', $event->id]);
+        return $this->redirect(['action'=>'edit', $event->id]);
       }
       else{
         $this->Flash->error('Erro ao cadastrar evento');
@@ -31,6 +31,8 @@ class EventsController extends AppController
     $this->loadModel('Schedules');
 
     $event = $this->Events->get($id);
+
+    $_new = true;
     $scheduledata;
 
     if($schedule_id != null){
@@ -40,15 +42,16 @@ class EventsController extends AppController
         $scheduledata->begin = $scheduledata->begin->format('H:i');
         $scheduledata->end = $scheduledata->end->format('H:i');
         $scheduledata->calendars = ['_ids' => $scheduledata->calendars_ids];
+        $_new = false;
       }
     }else{
-      $scheduledata = $this->Schedules->newEntity();
+        $scheduledata = $this->Schedules->newEntity();
     }
 
     $this->set(compact('event'));
     $this->set(compact('scheduledata'));
 
-    if($this->request->is(['post', 'put'])){
+    if($this->request->is(['put', 'post'])){
       if(isset($this->request->data['editingevent'])){
         $event = $this->Events->patchEntity($event, $this->request->data);
         if($this->Events->save($event)){
@@ -71,11 +74,11 @@ class EventsController extends AppController
 
         $nextday = \DateTime::createFromFormat('d/m/Y', $_date);
         $nextday->add(new \DateInterval('P1D'));
-
         $this->request->data['date'] = $nextday->format('d/m/Y');
+
         $scheduledata = $this->Schedules->patchEntity($scheduledata, $data);
 
-        if($scheduledata->new){
+        if($_new){
           if($this->Schedules->save($scheduledata)){
             $this->Flash->success('Agendamento cadastrado com sucesso');
           }
@@ -85,11 +88,11 @@ class EventsController extends AppController
         }else{
           if($this->Schedules->save($scheduledata)){
             $this->Flash->success('Agendamento editado com sucesso');
+            return $this->redirect(['action'=>'edit', $event->id]);
           }
           else{
             $this->Flash->error('Erro ao editar agendamento');
           }
-          return $this->redirect(['action'=>'edit', $event->id]);
         }
       }
     }

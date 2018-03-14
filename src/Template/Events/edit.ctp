@@ -1,4 +1,8 @@
-<?php $this->Form->setTemplates([ 'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>' ]); ?>
+<?php
+  $this->layout('default');
+  $this->Form->setTemplates([ 'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>' ]);
+?>
+
 <section class="block-content">
   <section>
     <div class="row">
@@ -39,7 +43,7 @@
               <hr>
             </header>
             <section>
-              <?= $this->Form->create($scheduledata) ?>
+              <?= $this->Form->create($scheduledata); ?>
               <?= $this->Form->hidden('event_id', ['value' => $event->id]); ?>
               <div class="form-row">
                 <div class="form-group col-12 col-sm-6 col-lg-2">
