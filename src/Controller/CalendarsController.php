@@ -102,32 +102,47 @@ class CalendarsController extends AppController{
     $this->set('_serialize', 'json');
   }
   public function getCalendars(){
-    if ($this->request->is('ajax')) {
-        $this->autoRender = false;
-        $name = $this->request->query['term'];
+    $this->autoRender = false;
+    $name = $this->request->query['term'];
+    $schedule_id = $this->request->query['scheduleid'];
+
+    $results;
+
+    if(!empty($name)){
+      $results = $this->Calendars->find('all', [
+          'conditions' => [ 'OR' => [
+              'name LIKE' => '%' . $name . '%',
+              'code LIKE' => '%' . $name . '%',
+          ]]
+      ])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit(20);
+    }else{
+      if(!empty($schedule_id)){
+        $this->loadModel('Schedules');
+        $schedule = $this->Schedules->get( $schedule_id , ['contain' => ['Calendars']]);
+        $results = $schedule->calendars;
+      }
+      else{
         $results = $this->Calendars->find('all', [
             'conditions' => [ 'OR' => [
                 'name LIKE' => '%' . $name . '%',
                 'code LIKE' => '%' . $name . '%',
-            ]]
-        ])->order(['type_id' => 'DESC', 'code' => 'ASC']);
-
-
-        $this->loadModel('Types');
-        $types = $this->Types->getArray();
-        $this->response->type('application/json');
-
-        $resultsArr = [];
-        foreach ($results as $result) {
-           $resultsArr [] = [
-             'value' => (string)$result['id'],
-             'label' => '['.$result['code'].'] ' . $result['name'],
-             'type' => $types[$result['type_id']],
-             'key' => $result['code'] . ' - ' . $result['name']
-           ];
-        }
-        echo json_encode(['data' => $resultsArr]);
+            ]]])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit(20);
+      }
     }
+
+    $this->loadModel('Types');
+    $types = $this->Types->getArray();
+    $this->response->type('application/json');
+
+    $resultsArr = [];
+    foreach ($results as $result) {
+       $resultsArr [] = [
+         'value' => (string)$result['id'],
+         'label' => '['.$result['code'].'] ' . $result['name'],
+         'type' => $types[$result['type_id']]
+       ];
+    }
+    echo json_encode(['data' => $resultsArr]);
   }
 
   public function isAuthorized($user) {

@@ -161,7 +161,6 @@ class EventsController extends AppController{
 
   public function isAuthorized($user) {
     if(isset($user)){
-      
       // Só level 3 pra baixo pode gerenciar os eventos, os demais só podem visualizar
       if (in_array($this->request->getParam('action'), ['unarchive', 'archive', 'remove', 'add', 'edit', 'removeschedule', 'editschedule'])) {
         if($user['level'] <= 3){

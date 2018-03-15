@@ -1,3 +1,5 @@
+<?php $count = 0; ?>
+
 <section class="schedules-group">
   <div class="card-columns flex-rows">
   <?php foreach($schedules as $schedule): ?>

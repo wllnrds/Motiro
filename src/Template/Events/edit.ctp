@@ -101,7 +101,7 @@
   var calendars = $('#calendars-ids').selectize({
     valueField: 'value',
     labelField: 'label',
-    searchField: 'key',
+    searchField: 'label',
     options: [],
     create: false,
     render: {
@@ -119,7 +119,7 @@
     load: function(query, callback){
       let selectize = this;
       $.ajax({
-        url: '<?= $this->Url->build(["controller" => "Calendars", "action" => "getCalendars"]) ?>?term=' + encodeURIComponent(query),
+        url: '<?= $this->Url->build(["controller" => "Calendars", "action" => "getCalendars"]) ?>?scheduleid=<?php if(isset($scheduledata->id)) { echo $scheduledata->id ; } ?>&term=' + encodeURIComponent(query),
         type: 'GET',
         error: function() {
           callback();
