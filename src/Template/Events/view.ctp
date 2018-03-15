@@ -5,7 +5,9 @@
           <h2 class="title"><b>[<?= $event->code ?>]</b> <?= $event->label ?></h2>
         </div>
         <div class="col-12 col-md-6 text-left text-md-right">
+          <?php if(isset($level) && $level <= 3): ?>
           <a class="btn btn-outline-primary btn-sm" href="<?= $this->Url->build(["controller" => "Events", "action" => "edit", $event->id]) ?>">Editar Evento</a>
+          <?php endif; ?>
         </div>
     </div>
 

@@ -27,8 +27,7 @@ class CalendarsController extends AppController{
     $this->set(compact('search'));
   }
 
-  public function add()
-  {
+  public function add(){
     $calendar = $this->Calendars->newEntity();
     if($this->request->is('post')){
       $calendar = $this->Calendars->patchEntity($calendar, $this->request->data);
@@ -44,9 +43,7 @@ class CalendarsController extends AppController{
     $this->set(compact('calendar', 'types'));
     $this->set('_serialize', ['calendar']);
   }
-
-  public function edit($id=null)
-  {
+  public function edit($id=null){
     $this->loadComponent('Paginator');
     $calendar = $this->Calendars->get($id);
     if($this->request->is(['post', 'put'])){
@@ -63,7 +60,6 @@ class CalendarsController extends AppController{
     $this->set(compact('calendar', 'types'));
     $this->set('_serialize', ['calendar']);
   }
-
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
     $calendar = $this->Calendars->get($id);
@@ -77,12 +73,10 @@ class CalendarsController extends AppController{
     }
     return $this->redirect(['action' => 'index']);
   }
-
   public function view($id = null){
     $calendar = $this->Calendars->get($id);
     $this->set(compact('calendar'));
   }
-
 
   public function load($id){
     $this->response->type('json');
@@ -107,7 +101,6 @@ class CalendarsController extends AppController{
     $this->set(compact('json'));
     $this->set('_serialize', 'json');
   }
-
   public function getCalendars(){
     if ($this->request->is('ajax')) {
         $this->autoRender = false;
@@ -117,7 +110,7 @@ class CalendarsController extends AppController{
                 'name LIKE' => '%' . $name . '%',
                 'code LIKE' => '%' . $name . '%',
             ]]
-        ]);
+        ])->order(['type_id' => 'DESC', 'code' => 'ASC']);
 
 
         $this->loadModel('Types');
@@ -128,12 +121,43 @@ class CalendarsController extends AppController{
         foreach ($results as $result) {
            $resultsArr [] = [
              'value' => (string)$result['id'],
-             'label' => $result['name'],
+             'label' => '['.$result['code'].'] ' . $result['name'],
              'type' => $types[$result['type_id']],
              'key' => $result['code'] . ' - ' . $result['name']
            ];
         }
         echo json_encode(['data' => $resultsArr]);
     }
+  }
+
+  public function isAuthorized($user) {
+    if(isset($user)){
+      // Só level 2 pra baixo pode adicionar e excluir calendários
+      if (in_array($this->request->getParam('action'), ['add', 'remove'])) {
+        if($user['level'] <= 2){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      // Só level 3 pra baixo pode editar
+      if ($this->request->getParam('action') === 'edit') {
+        if($user['level'] <= 3){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      if ($this->request->getParam('action') === 'index') {
+        if($user['level'] < 10){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
+    return parent::isAuthorized($user);
   }
 }

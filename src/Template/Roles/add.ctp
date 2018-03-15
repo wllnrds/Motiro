@@ -13,8 +13,11 @@
     ?>
     <?= $this->Form->create($role) ?>
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-sm-6">
         <?= $this->Form->control('label', ['class' => 'form-control', 'label' => [ 'text' => 'Nome']]) ?>
+      </div>
+      <div class="form-group col-sm-2">
+        <?= $this->Form->control('level', ['class' => 'form-control', 'label' => [ 'text' => 'Nível']]) ?>
       </div>
       <div class="w-100"></div>
       <div class="form-group col">

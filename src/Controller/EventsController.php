@@ -5,7 +5,6 @@ use App\Controller;
 
 class EventsController extends AppController{
   public function index(){
-
     $search = $this->request->getQuery('search');
 
     $events;
@@ -22,9 +21,7 @@ class EventsController extends AppController{
     $this->set(compact('events'));
     $this->set(compact('search'));
   }
-
-  public function add()
-  {
+  public function add(){
     $event = $this->Events->newEntity();
     if($this->request->is('post')){
       $event = $this->Events->patchEntity($event, $this->request->data);
@@ -38,9 +35,7 @@ class EventsController extends AppController{
     }
     $this->set(compact('event'));
   }
-
-  public function edit($id, $schedule_id = null)
-  {
+  public function edit($id, $schedule_id = null){
     $this->loadModel('Schedules');
 
     $event = $this->Events->get($id);
@@ -110,11 +105,13 @@ class EventsController extends AppController{
       }
     }
   }
-
+  public function view($id = null){
+    $event = $this->Events->get($id);
+    $this->set(compact('event'));
+  }
   public function editschedule($event_id, $schedule_id){
     return $this->redirect(['action'=>'edit', $event_id, $schedule_id]);
   }
-
   public function removeschedule($schedule_id, $event_id){
     if($schedule_id != null){
       $this->request->allowMethod(['post', 'delete']);
@@ -134,7 +131,6 @@ class EventsController extends AppController{
 
     return $this->redirect(['action'=>'edit', $event_id]);
   }
-
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
     $event = $this->Events->get($id);
@@ -146,9 +142,43 @@ class EventsController extends AppController{
     }
     return $this->redirect(['action' => 'index']);
   }
-
-  public function view($id = null){
+  public function archive($id){
+    $this->request->allowMethod(['post', 'delete']);
     $event = $this->Events->get($id);
-    $this->set(compact('event'));
+    $event->archived = true;
+    if($this->Events->save($event)){ $this->Flash->success('Evento arquivado com sucesso'); }
+    else{ $this->Flash->error('Evento não foi arquivado'); }
+    return $this->redirect(['action' => 'index']);
+  }
+  public function unarchive($id){
+    $this->request->allowMethod(['post', 'delete']);
+    $event = $this->Events->get($id);
+    $event->archived = false;
+    if($this->Events->save($event)){ $this->Flash->success('Evento desarquivado com sucesso'); }
+    else{ $this->Flash->error('Evento não foi desarquivado'); }
+    return $this->redirect(['action' => 'index']);
+  }
+
+  public function isAuthorized($user) {
+    if(isset($user)){
+      
+      // Só level 3 pra baixo pode gerenciar os eventos, os demais só podem visualizar
+      if (in_array($this->request->getParam('action'), ['unarchive', 'archive', 'remove', 'add', 'edit', 'removeschedule', 'editschedule'])) {
+        if($user['level'] <= 3){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      if ($this->request->getParam('action') === 'index') {
+        if($user['level'] < 10){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
+    return parent::isAuthorized($user);
   }
 }

@@ -36,8 +36,7 @@
                 <a href="<?= $this->Url->build(["controller" => "Users", "action" => "edit", $user->id]) ?>" class="btn btn-primary btn-sm">editar</a>
                 <?= $this->Form->postLink('excluir',
                   ['action' => 'remove', $user->id],
-                  ['class' => 'btn btn-outline-danger btn-sm'],
-                  ['confirm' => ('Realmente quer apagar o calendário?'), $user->id]) ?>
+                  ['class' => 'btn btn-outline-danger btn-sm', 'confirm' => ('Deseja apagar o calendário?'), $user->id]) ?>
               </td>
             </tr>
           <?php endforeach; ?>

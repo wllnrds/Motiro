@@ -1,9 +1,15 @@
 <?php
 namespace App\Controller;
 
-class UsersController extends AppController
-  {
-    public function index(){
+use Cake\Event\Event;
+
+class UsersController extends AppController {
+  public function beforeFilter(Event $event){
+    parent::beforeFilter($event);
+    $this->Auth->allow(['logout']);
+  }
+
+  public function index(){
     $users = $this->Users->find()->all();
     $this->set(compact('users'));
 
@@ -63,15 +69,13 @@ class UsersController extends AppController
     return $this->redirect(['action' => 'index']);
   }
 
-  public function view($id = null){
-    $user = $this->Users->get($id);
-    $this->set(['result' => $user]);
-  }
-
   public function login(){
     if($this->request->is('post')){
       $user = $this->Auth->identify();
       if($user){
+        $this->loadModel('Roles');
+        $role = $this->Roles->get($user['role_id']);
+        $user['level'] = $role->level;
         $this->Auth->setUser($user);
         return $this->redirect(['controller' => 'pages/home']);
       }
@@ -82,6 +86,15 @@ class UsersController extends AppController
   public function logout(){
     $this->Flash->success('Você foi deslogado');
     return $this->redirect($this->Auth->logout());
+  }
+
+  public function isAuthorized($user) {
+    if(isset($user)){
+      if($user['level'] <= 2){
+        return true;
+      }
+    }
+    return false;
   }
 
 }

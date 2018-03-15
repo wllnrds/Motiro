@@ -20,6 +20,7 @@ h2, h3, h4{
 
 $theme_color: #c5cfd4;
 $theme_ascent_color: #005bc9;
+$theme_alert_color: rgb(166, 41, 82);
 
 $bullet-types: (
   default: #323232,
@@ -76,6 +77,20 @@ $bullet-types: (
 
   .icon-item{
     text-decoration: none;
+
+    &.alert-color{
+      .box{
+        background-color: #ffffff;
+        color: $theme_alert_color;
+      }
+
+      &:hover{
+        .box{
+          background-color: $theme_alert_color;
+          color: #ffffff;
+        }
+      }
+    }
 
     .box{
         width: 60px;

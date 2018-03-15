@@ -110,6 +110,16 @@ h2, h3, h4 {
 	text-decoration: none;
 }
 
+#main-menu .icon-item.alert-color .box {
+	background-color: #ffffff;
+	color: #a62952;
+}
+
+#main-menu .icon-item.alert-color:hover .box {
+	background-color: #a62952;
+	color: #ffffff;
+}
+
 #main-menu .icon-item .box {
 	width: 60px;
 	height: 60px;

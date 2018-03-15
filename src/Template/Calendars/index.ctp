@@ -9,7 +9,9 @@
         <div class="col-12 col-md-6 text-left text-md-right">
           <div class="row">
             <div class="col">
+              <?php if(isset($level) && $level <= 2): ?>
               <?= $this->Html->link(__('Novo Calendário'), ['action' => 'add'], ['class' => 'btn btn-success btn-sm']); ?>
+              <?php endif; ?>
             </div>
             <div class="col">
               <form class="form-inline d-inline">
@@ -52,19 +54,19 @@
               <tr>
                 <th class="text-nowrap" style="width:100px;"><?php echo $calendar->code; ?></th>
                 <td>
-                  <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
-                  <p class="table-description">
-                     <b><?= $_types[$calendar->type_id] ?></b> - <?= $calendar->description ?>
-                  </p>
+                  <b class="bullet-item b-<?= $_types[$calendar->type_id] ?>"><?= $type->description ?></b> <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
+                  <p class="table-description"><?= $calendar->description ?></p>
                 </td>
                 <td class="text-nowrap text-right" style="width:200px;">
+                  <?php if(isset($level) && $level <= 3): ?>
                   <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "edit", $calendar->id]) ?>" class="btn btn-primary btn-sm">editar</a>
+                  <?php endif; ?>
+                  <?php if(isset($level) && $level <= 2): ?>
                   <?= $this->Form->postLink('apagar',
                     ['action' => 'remove', $calendar->id],
-                    ['class' => 'btn btn-outline-danger btn-sm'],
-                    ['confirm' => ('Realmente quer apagar o calendário?'), $calendar->id]
-                    )
+                    ['class' => 'btn btn-outline-danger btn-sm', 'confirm' => ('Deseja apagar o calendário?'), $calendar->id] )
                   ?>
+                  <?php endif; ?>
                 </td>
               </tr>
             <?php

@@ -28,9 +28,7 @@
       echo '<b>HOJE</b>, ';
     }
 
-    echo $date->format('d \d\e ') . $months[$date->format('n')-1] . $date->format(' \d\e Y') ?>
-    <?= $this->Html->link('Deslogar', ['controller' => 'users', 'action' => 'logout']); ?>
-    
+    echo $date->format('d \d\e ') . $months[$date->format('n')-1] . $date->format(' \d\e Y') ?>    
 </div>
 
 <!-- <section class="block-content">
