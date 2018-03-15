@@ -97,17 +97,7 @@
 </section>
 
 <script>
-  var recovering = [
-    <?php
-      if(isset($this->request->data['calendars'])){
-        echo join(', ', $this->request->data['calendars']['_ids']);
-      }else{
-        if(isset($scheduledata['calendars'])){
-          echo join(', ', $scheduledata['calendars']['_ids']);
-        }
-      }
-    ?>
-  ];
+  var recovering = [ <?php if(isset($this->request->data['calendars'])){ echo join(', ', $this->request->data['calendars']['_ids']); } else { if(isset($scheduledata['calendars'])){ echo join(', ', $scheduledata['calendars']['_ids']); } } ?> ];
   var calendars = $('#calendars-ids').selectize({
     valueField: 'value',
     labelField: 'label',
