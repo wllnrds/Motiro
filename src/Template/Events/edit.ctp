@@ -1,8 +1,4 @@
-<?php
-  $this->layout('default');
-  $this->Form->setTemplates([ 'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>' ]);
-?>
-
+<?php $this->Form->setTemplates([ 'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>' ]); ?>
 <section class="block-content">
   <section>
     <div class="row">
@@ -88,6 +84,33 @@
               <hr>
             </header>
             <section>
+<<<<<<< HEAD
+=======
+              <?= $this->Form->create($scheduledata) ?>
+              <?= $this->Form->hidden('event_id', ['value' => $event->id]); ?>
+              <div class="form-row">
+                <div class="form-group col-12 col-sm-6 col-lg-2">
+                  <?= $this->Form->control('date', [ 'required' => true, 'type' => 'text', 'class' => 'mask-date form-control', 'label' => [ 'text' => 'Data']]) ?>
+                </div>
+                <div class="w-100 d-lg-none"></div>
+                <div class="form-group col-6 col-sm-6 col-lg-2">
+                  <?= $this->Form->control('begin', [ 'required' => true, 'type' => 'text', 'class' => 'mask-time form-control', 'label' => [ 'text' => 'Hora de Início']]) ?>
+                </div>
+                <div class="form-group col-6 col-sm-6 col-lg-2">
+                  <?= $this->Form->control('end', [ 'required' => true, 'type' => 'text', 'class' => 'mask-time form-control', 'label' => [ 'text' => 'Hora de Fim']]) ?>
+                </div>
+                <div class="form-group col-12 col-lg-6">
+                  <?= $this->Form->control('calendars._ids', ['options' => '', 'required' => true, 'multiple' => true , 'type' => 'select', 'class' => '', 'label' => [ 'text' => 'Calendários']]) ?>
+                </div>
+                <div class="w-100"></div>
+                <div class="form-group col text-right">
+                  <?= $this->Form->button('Salvar Agendamento', ['class' => 'btn btn-primary']) ?>
+                </div>
+              </div>
+              <?= $this->Form->end() ?>
+            </section>
+            <section>
+>>>>>>> parent of f8271f8... Correção no bug de incremento de data na criação de agendamentos
               <?= $this->cell('EventsList', [$event->id]);?>
             </section>
           </section>

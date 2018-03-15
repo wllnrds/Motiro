@@ -67,4 +67,21 @@ class UsersController extends AppController
     $user = $this->Users->get($id);
     $this->set(['result' => $user]);
   }
+
+  public function login(){
+    if($this->request->is('post')){
+      $user = $this->Auth->identify();
+      if($user){
+        $this->Auth->setUser($user);
+        return $this->redirect(['controller' => 'pages/home']);
+      }
+      $this->Flash->error('Login ou senha errado');
+    }
+  }
+
+  public function logout(){
+    $this->Flash->success('Você foi deslogado');
+    return $this->redirect($this->Auth->logout());
+  }
+
 }

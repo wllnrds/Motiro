@@ -18,7 +18,6 @@
     });
   });
 </script>
-
 <?php $this->end(); ?>
 
 <div class="sub-line">
@@ -30,6 +29,8 @@
     }
 
     echo $date->format('d \d\e ') . $months[$date->format('n')-1] . $date->format(' \d\e Y') ?>
+    <?= $this->Html->link('Deslogar', ['controller' => 'users', 'action' => 'logout']); ?>
+    
 </div>
 
 <!-- <section class="block-content">
