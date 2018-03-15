@@ -54,7 +54,7 @@
               <tr>
                 <th class="text-nowrap" style="width:100px;"><?php echo $calendar->code; ?></th>
                 <td>
-                  <b class="bullet-item b-<?= $_types[$calendar->type_id] ?>"><?= $type->description ?></b> <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
+                  <i class="bullet-item b-<?= $_types[$calendar->type_id] ?>"><?= $type->description ?></i> <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
                   <p class="table-description"><?= $calendar->description ?></p>
                 </td>
                 <td class="text-nowrap text-right" style="width:200px;">
