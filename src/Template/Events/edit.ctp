@@ -139,17 +139,25 @@
         '</div>';
       },
       item: function(data, escape) {
+        let pass = true;
+
         if(data.class.includes("busy")){
           if(confirm("Esse calendário já está ocupado no periodo informado. Deseja continuar?")){
-            return '<div class="item color-' + data.class + '">' + escape(data.label) + '</div>';
+            pass = true;
+          }else{
+            pass = false;
           }
         }
-        return false;
+
+        if(pass){
+          return '<div class="item color-' + data.class + '">' + escape(data.label) + '</div>';
+        }else{
+          return false;
+        }
       }
     },
     load: function(query, callback){
       let selectize = this;
-      this.clearOptions();
 
       let $url = '<?= $this->Url->build(["controller" => "Calendars", "action" => "getCalendars"]) ?>?'+
         'scheduleid=<?php if(isset($scheduledata->id)) { echo $scheduledata->id ; } ?>';
@@ -162,12 +170,13 @@
       $.ajax({
         url: $url,
         type: 'GET',
-        async: false,
         error: function() {
           callback();
         },
         success: function(res) {
+          selectize.clearOptions();
           callback(res.data);
+
           if(recovering.length > 0){
             selectize.setValue(recovering);
             recovering = [];
@@ -178,6 +187,7 @@
     },
     preload: true
   });
+
   calendar = $calendar[0].selectize;
 
   var _date = false;
@@ -197,7 +207,6 @@
     }
 
     if(b.value && e.value){
-      console.log("tem tudo");
       if(b.value < e.value){
         _begin = b.checkValidity();
         _end = e.checkValidity();
@@ -211,18 +220,14 @@
       $_date = $('#date')[0].value;
       $_begin = $('#begin')[0].value;
       $_end = $('#end')[0].value;
-
       calendar.enable();
-      calendar.clearOptions();
+      selectize.clearOptions();
     }else{
       $_date = null;
       $_begin = null;
       $_end = null;
-
+      selectize.clearOptions();
       calendar.disable();
-      calendar.clearOptions();
     }
-
-    console.log(_date + " " + _begin + " " + _end);
   }
 </script>
