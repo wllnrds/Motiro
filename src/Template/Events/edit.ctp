@@ -174,7 +174,6 @@
           callback();
         },
         success: function(res) {
-          selectize.clearOptions();
           callback(res.data);
 
           if(recovering.length > 0){
