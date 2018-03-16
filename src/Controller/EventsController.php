@@ -46,7 +46,7 @@ class EventsController extends AppController{
     if($schedule_id != null){
       $scheduledata = $this->Schedules->get($schedule_id);
       if($scheduledata != null){
-        $scheduledata->date = $scheduledata->begin->format('d/m/Y');
+        $scheduledata->date = $scheduledata->begin->format('Y-m-d');
         $scheduledata->begin = $scheduledata->begin->format('H:i');
         $scheduledata->end = $scheduledata->end->format('H:i');
         $scheduledata->calendars = ['_ids' => $scheduledata->calendars_ids];
@@ -73,16 +73,18 @@ class EventsController extends AppController{
 
       if(isset($this->request->data['event_id'])){
         $data = $this->request->data;
+
+
         $_date = $data['date'];
         $_begin = $data['begin'];
         $_end = $data['end'];
 
-        $data['begin'] = \DateTime::createFromFormat('d/m/Y H:i', $_date . ' ' . $_begin);
-        $data['end'] = \DateTime::createFromFormat('d/m/Y H:i', $_date . ' ' . $_end);
+        $data['begin'] = \DateTime::createFromFormat('Y-m-d H:i', $_date . ' ' . $_begin);
+        $data['end'] = \DateTime::createFromFormat('Y-m-d H:i', $_date . ' ' . $_end);
 
-        $nextday = \DateTime::createFromFormat('d/m/Y', $_date);
+        $nextday = \DateTime::createFromFormat('Y-m-d', $_date);
         $nextday->add(new \DateInterval('P1D'));
-        $this->request->data['date'] = $nextday->format('d/m/Y');
+        $this->request->data['date'] = $nextday->format('Y-m-d');
 
         $scheduledata = $this->Schedules->patchEntity($scheduledata, $data);
 

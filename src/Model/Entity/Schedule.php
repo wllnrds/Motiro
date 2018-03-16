@@ -9,8 +9,7 @@ class Schedule extends Entity
     protected $_accessible = [ '*' => true ];
     protected $_virtual = [];
 
-    protected function _getOrdering()
-    {
+    protected function _getOrdering(){
         $event_id = $this->_properties['event_id'];
 
         $data = TableRegistry::get('Schedules');
@@ -22,9 +21,7 @@ class Schedule extends Entity
 
         return '(' . $this->indexOf($result) . '/' . sizeof($result) . ')';
     }
-
-    protected function _getCalendarsIds()
-    {
+    protected function _getCalendarsIds(){
         $id = $this->_properties['id'];
 
         $data = TableRegistry::get('SchedulesCalendars');
@@ -40,9 +37,7 @@ class Schedule extends Entity
 
         return $array;
     }
-
-    protected function _getActive()
-    {
+    protected function _getActive(){
       $now = new \DateTime('now');
       $start = $this->_properties['begin'];
       $end = $this->_properties['end'];

@@ -102,10 +102,26 @@ class CalendarsController extends AppController{
     $this->set('_serialize', 'json');
   }
   public function getCalendars(){
-    $this->autoRender = false;
+    $this->loadModel('Types');
+    $this->loadModel('Schedules');
+
     $name = $this->request->query['term'];
     $schedule_id = $this->request->query['scheduleid'];
 
+    // para verificar se os calendários estão ocupados
+    $begin;
+    $end;
+
+    if(isset($this->request->query['date'])){
+      $_date = $this->request->query['date'];
+      $_begin = $this->request->query['begin'];
+      $_end = $this->request->query['end'];
+
+      $begin = $_date . ' ' . $_begin;
+      $end = $_date . ' ' . $_end;
+    }
+
+    $limit = 10;
     $results;
 
     if(!empty($name)){
@@ -114,7 +130,7 @@ class CalendarsController extends AppController{
               'name LIKE' => '%' . $name . '%',
               'code LIKE' => '%' . $name . '%',
           ]]
-      ])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit(20);
+      ])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit($limit);
     }else{
       if(!empty($schedule_id)){
         $this->loadModel('Schedules');
@@ -123,25 +139,35 @@ class CalendarsController extends AppController{
       }
       else{
         $results = $this->Calendars->find('all', [
-            'conditions' => [ 'OR' => [
-                'name LIKE' => '%' . $name . '%',
-                'code LIKE' => '%' . $name . '%',
-            ]]])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit(20);
+          'conditions' => [ 'OR' => [
+              'name LIKE' => '%' . $name . '%',
+              'code LIKE' => '%' . $name . '%',
+          ]]])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit($limit);
       }
     }
 
-    $this->loadModel('Types');
     $types = $this->Types->getArray();
-    $this->response->type('application/json');
-
     $resultsArr = [];
     foreach ($results as $result) {
-       $resultsArr [] = [
-         'value' => (string)$result['id'],
-         'label' => '['.$result['code'].'] ' . $result['name'],
-         'type' => $types[$result['type_id']]
-       ];
+      $_class = $types[$result['type_id']];
+
+      if(isset($this->request->query['date'])){
+        $isfree = $this->Schedules->isFree($result['id'], $begin, $end);
+
+        if(!$isfree){
+          $_class .= ' busy';
+        }
+      }
+
+      $resultsArr [] = [
+        'value' => (string)$result['id'],
+        'label' => '['.$result['code'].'] ' . $result['name'],
+        'class' => $_class
+      ];
     }
+
+    $this->autoRender = false;
+    $this->response->type('application/json');
     echo json_encode(['data' => $resultsArr]);
   }
 

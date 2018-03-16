@@ -96,8 +96,8 @@
     realtime();
 
     $(document).ready(function(){
-      $('.mask-date').mask('00/00/0000', {placeholder: "dd/mm/aaaa"});
-      $('.mask-time').mask('00:00', {placeholder: "hh:mm"});
+      $('.mask-date').attr('type', 'date');//.mask('00/00/0000', {placeholder: "dd/mm/aaaa"});
+      $('.mask-time').attr('type', 'time');//.mask('00:00', {placeholder: "hh:mm"});
     });
   </script>
   <?= $this->Html->script('moment.js') ?>

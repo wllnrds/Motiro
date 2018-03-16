@@ -4,14 +4,13 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-class CalendarsTable extends Table
-{
-    public function initialize(array $config)
-    {
-      parent::initialize($config);
-      $this->belongsTo('Types');
-      $this->belongsToMany('Schedules', [
-        'through' => 'SchedulesCalendars',
-      ]);
-    }
+
+class CalendarsTable extends Table{
+  public function initialize(array $config){
+    parent::initialize($config);
+    $this->belongsTo('Types');
+    $this->belongsToMany('Schedules', [
+      'through' => 'SchedulesCalendars',
+    ]);
+  }  
 }

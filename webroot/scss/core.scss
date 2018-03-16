@@ -29,6 +29,12 @@ $bullet-types: (
   curso: #f64200
 );
 
+@keyframes movebg{ 100% { background-position: 28px; } }
+@-moz-keyframes movebg{ 100% { background-position: 28px; } }
+@-webkit-keyframes movebg { 100% { background-position: 28px; } }
+@-o-keyframes movebg { 100% { background-position: 28px; } }
+@-ms-keyframes movebg { 100% { background-position: 28px; } }
+
 @each $label, $color in $bullet-types {
   .color-#{$label}{
     background: none !important;
@@ -38,6 +44,19 @@ $bullet-types: (
 
     &:hover{
       background-color: darken($color, 5%)  !important;
+    }
+
+    &.busy{
+      opacity: 0.7;
+      background-image: url('../img/bg-busy.png') !important;
+  		background-position: top left;
+			background-repeat: repeat;
+
+		  animation: movebg 1s infinite linear;
+		  -webkit-animation: movebg 1s infinite linear;
+		  -moz-animation: movebg 1s infinite linear;
+		  -o-animation: movebg 1s infinite linear;
+		  -ms-animation: movebg 1s infinite linear;
     }
   }
 }

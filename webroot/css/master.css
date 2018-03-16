@@ -26,6 +26,36 @@ h2, h3, h4 {
 	line-height: 30px;
 }
 
+@keyframes movebg {
+	100% {
+		background-position: 28px;
+	}
+}
+
+@-moz-keyframes movebg {
+	100% {
+		background-position: 28px;
+	}
+}
+
+@-webkit-keyframes movebg {
+	100% {
+		background-position: 28px;
+	}
+}
+
+@-o-keyframes movebg {
+	100% {
+		background-position: 28px;
+	}
+}
+
+@-ms-keyframes movebg {
+	100% {
+		background-position: 28px;
+	}
+}
+
 .color-default {
 	background: none !important;
 	border: none !important;
@@ -35,6 +65,18 @@ h2, h3, h4 {
 
 .color-default:hover {
 	background-color: #252525 !important;
+}
+
+.color-default.busy {
+	opacity: 0.7;
+	background-image: url("../img/bg-busy.png") !important;
+	background-position: top left;
+	background-repeat: repeat;
+	animation: movebg 1s infinite linear;
+	-webkit-animation: movebg 1s infinite linear;
+	-moz-animation: movebg 1s infinite linear;
+	-o-animation: movebg 1s infinite linear;
+	-ms-animation: movebg 1s infinite linear;
 }
 
 .color-instrutor {
@@ -48,6 +90,18 @@ h2, h3, h4 {
 	background-color: #0071d9 !important;
 }
 
+.color-instrutor.busy {
+	opacity: 0.7;
+	background-image: url("../img/bg-busy.png") !important;
+	background-position: top left;
+	background-repeat: repeat;
+	animation: movebg 1s infinite linear;
+	-webkit-animation: movebg 1s infinite linear;
+	-moz-animation: movebg 1s infinite linear;
+	-o-animation: movebg 1s infinite linear;
+	-ms-animation: movebg 1s infinite linear;
+}
+
 .color-ambiente {
 	background: none !important;
 	border: none !important;
@@ -59,6 +113,18 @@ h2, h3, h4 {
 	background-color: #7a00e6 !important;
 }
 
+.color-ambiente.busy {
+	opacity: 0.7;
+	background-image: url("../img/bg-busy.png") !important;
+	background-position: top left;
+	background-repeat: repeat;
+	animation: movebg 1s infinite linear;
+	-webkit-animation: movebg 1s infinite linear;
+	-moz-animation: movebg 1s infinite linear;
+	-o-animation: movebg 1s infinite linear;
+	-ms-animation: movebg 1s infinite linear;
+}
+
 .color-curso {
 	background: none !important;
 	border: none !important;
@@ -68,6 +134,18 @@ h2, h3, h4 {
 
 .color-curso:hover {
 	background-color: #dd3b00 !important;
+}
+
+.color-curso.busy {
+	opacity: 0.7;
+	background-image: url("../img/bg-busy.png") !important;
+	background-position: top left;
+	background-repeat: repeat;
+	animation: movebg 1s infinite linear;
+	-webkit-animation: movebg 1s infinite linear;
+	-moz-animation: movebg 1s infinite linear;
+	-o-animation: movebg 1s infinite linear;
+	-ms-animation: movebg 1s infinite linear;
 }
 
 #top-header {

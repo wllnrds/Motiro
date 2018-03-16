@@ -6,10 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use App\Model\Entity\Roles;
 
-class RolesTable extends Table
-{
-  public function initialize(array $config)
-  {
+class RolesTable extends Table{
+  public function initialize(array $config){
     $this->hasMany('Users');
     $this->displayField('label');
   }

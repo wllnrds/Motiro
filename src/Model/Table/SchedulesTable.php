@@ -1,12 +1,14 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use App\Model\Entity\Schedules;
 
 class SchedulesTable extends Table
 {
-    public function initialize(array $config)
-    {
+    public function initialize(array $config){
       $this->belongsTo('Events');
       $this->belongsToMany('Calendars', [
         'through' => 'SchedulesCalendars',
@@ -66,6 +68,24 @@ class SchedulesTable extends Table
         ->order(['Schedules.begin'=>"ASC"])->all();
 
       return $schedules;
+    }
+
+    public function isFree($calendar_id, $begin = null, $end = null){
+      if($begin !== null && $end !== null){
+        $schedules = $this->find('all', ['contains' => 'Calendars'])
+          ->leftJoinWith('Calendars')
+          ->where([
+            'Schedules.begin <=' => $begin,
+            'Schedules.end >' => $begin])
+          ->orWhere([
+            'Schedules.begin <' => $end,
+            'Schedules.end >=' => $end])
+          ->andWhere(['SchedulesCalendars.calendar_id' => $calendar_id])
+          ->order(['Schedules.begin'=>"ASC"])->count();
+
+        if($schedules > 0){ return false; }
+        return true;
+      }
     }
 
     private function _dating($date, $end_day = false){

@@ -6,10 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use App\Model\Entity\Types;
 
-class TypesTable extends Table
-{
-  public function initialize(array $config)
-  {
+class TypesTable extends Table{
+  public function initialize(array $config){
     $this->hasMany('Calendars');
     $this->displayField('description');
   }

@@ -26,28 +26,9 @@ class PagesController extends AppController
     }
 
     public function teste(){
-      $calendar_id = 4; // Willian
-      $inicio = '03/16/2018 10:00:00';
-      $fim = '03/16/2018 12:00:00';
-
-      $this->loadModel('Calendars');
       $this->loadModel('Schedules');
-
-      $begin_date = new \DateTime($inicio);
-      $end_date = new \DateTime($fim);
-
-      $schedules = $this->Schedules->find('all', ['contains' => 'Calendars'])
-        ->leftJoinWith('Calendars')
-        ->where([
-          'Schedules.begin >=' => $begin_date,
-          'Schedules.end >=' => $begin_date
-        ])->orWhere([
-          'Schedules.begin >=' => $end_date,
-          'Schedules.end >=' => $end_date
-        ])->andWhere(['Calendars.id' => $calendar_id])
-        ->order(['Schedules.begin'=>"ASC"])->all();
-
-        debug($schedules);
+      $t = $this->Schedules->isFree(4, '2018-03-16 07:00:00', '2018-03-16 09:00:00');
+      debug($t);
     }
 
     public function isAuthorized($user) {

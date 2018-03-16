@@ -1,6 +1,9 @@
 <?php
   $this->layout('default');
-  $this->Form->setTemplates([ 'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>' ]);
+  $this->Form->setTemplates([
+    'inputContainer' => '{{content}} <small class="text-muted">{{help}}</small>',
+    'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>'
+  ]);
 ?>
 
 <section class="block-content">
@@ -28,18 +31,38 @@
                   <?= $this->Form->hidden('event_id', ['value' => $event->id]); ?>
                   <div class="form-row">
                     <div class="form-group col-12 col-sm-6">
-                      <?= $this->Form->control('date', [ 'required' => true, 'type' => 'text', 'class' => 'mask-date form-control', 'label' => [ 'text' => 'Data']]) ?>
+                      <?= $this->Form->control('date', [
+                          'required' => true,
+                          'type' => 'text',
+                          'class' => 'mask-date form-control',
+                          'min' => '2018-01-01',
+                          'max' => '2050-12-31',
+                          'label' => [ 'text' => 'Data']]) ?>
                     </div>
                     <div class="w-100"></div>
                     <div class="form-group col-6">
-                      <?= $this->Form->control('begin', [ 'required' => true, 'type' => 'text', 'class' => 'mask-time form-control', 'label' => [ 'text' => 'Hora de Início']]) ?>
+                      <?= $this->Form->control('begin', [
+                          'required' => true,
+                          'type' => 'text',
+                          'class' => 'mask-time form-control',
+                          'min' => '07:00',
+                          'max' => '23:00',
+                          'step' => '900',
+                          'label' => [ 'text' => 'Hora de Início']]) ?>
                     </div>
                     <div class="form-group col-6">
-                      <?= $this->Form->control('end', [ 'required' => true, 'type' => 'text', 'class' => 'mask-time form-control', 'label' => [ 'text' => 'Hora de Fim']]) ?>
+                      <?= $this->Form->control('end', [
+                          'required' => true,
+                          'type' => 'text',
+                          'class' => 'mask-time form-control',
+                          'min' => '07:00',
+                          'max' => '23:00',
+                          'step' => '900',
+                          'label' => [ 'text' => 'Hora de Fim']]) ?>
                     </div>
                     <div class="w-100"></div>
                     <div class="form-group col">
-                      <?= $this->Form->control('calendars._ids', ['options' => '', 'required' => true, 'multiple' => true , 'type' => 'select', 'class' => '', 'label' => [ 'text' => 'Calendários']]) ?>
+                      <?= $this->Form->control('calendars._ids', ['options' => '', 'disabled' => 'disabled', 'required' => true, 'multiple' => true , 'type' => 'select', 'class' => '', 'label' => [ 'text' => 'Calendários']]) ?>
                     </div>
                     <div class="w-100"></div>
                     <div class="form-group col">
@@ -98,7 +121,10 @@
 
 <script>
   var recovering = [ <?php if(isset($this->request->data['calendars'])){ echo join(', ', $this->request->data['calendars']['_ids']); } else { if(isset($scheduledata['calendars'])){ echo join(', ', $scheduledata['calendars']['_ids']); } } ?> ];
-  var calendars = $('#calendars-ids').selectize({
+  var calendar, $calendar;
+  var $_date, $_begin, $_end;
+
+  $calendar = $('#calendars-ids').selectize({
     valueField: 'value',
     labelField: 'label',
     searchField: 'label',
@@ -106,33 +132,97 @@
     create: false,
     render: {
       option: function(item, escape) {
-        return '<div class="color-' + item.type + '">' +
+        return '<div class="color-' + item.class + '">' +
           '<span class="title">' +
             '<span class="name">' + escape(item.label) + '</span>' +
           '</span>' +
         '</div>';
       },
       item: function(data, escape) {
-          return '<div class="item color-' + data.type + '">' + escape(data.label) + '</div>';
+        if(data.class.includes("busy")){
+          if(confirm("Esse calendário já está ocupado no periodo informado. Deseja continuar?")){
+            return '<div class="item color-' + data.class + '">' + escape(data.label) + '</div>';
+          }
+        }
+        return false;
       }
     },
     load: function(query, callback){
       let selectize = this;
+      this.clearOptions();
+
+      let $url = '<?= $this->Url->build(["controller" => "Calendars", "action" => "getCalendars"]) ?>?'+
+        'scheduleid=<?php if(isset($scheduledata->id)) { echo $scheduledata->id ; } ?>';
+      $url += '&term=' + encodeURIComponent(query);
+
+      if($_date && $_begin && $_end){
+        $url += '&date=' + encodeURIComponent($_date) + '&begin=' + encodeURIComponent($_begin) + '&end=' + encodeURIComponent($_end);
+      }
+
       $.ajax({
-        url: '<?= $this->Url->build(["controller" => "Calendars", "action" => "getCalendars"]) ?>?scheduleid=<?php if(isset($scheduledata->id)) { echo $scheduledata->id ; } ?>&term=' + encodeURIComponent(query),
+        url: $url,
         type: 'GET',
+        async: false,
         error: function() {
           callback();
         },
         success: function(res) {
           callback(res.data);
-          if(recovering){
+          if(recovering.length > 0){
             selectize.setValue(recovering);
-            recovering = false;
+            recovering = [];
+            calendar.enable();
           }
         }
       });
     },
     preload: true
   });
+  calendar = $calendar[0].selectize;
+
+  var _date = false;
+  var _begin = false;
+  var _end = false;
+
+  $('#date, #begin, #end').change(verify);
+  $('#date, #begin, #end').on(verify);
+
+  function verify(){
+    let d = $('#date')[0];
+    let b = $('#begin')[0];
+    let e = $('#end')[0];
+
+    if(d.value){
+      _date = this.checkValidity();
+    }
+
+    if(b.value && e.value){
+      console.log("tem tudo");
+      if(b.value < e.value){
+        _begin = b.checkValidity();
+        _end = e.checkValidity();
+      }else{
+        _begin = false;
+        _end = false;
+      }
+    }
+
+    if(_date && _begin && _end){
+      $_date = $('#date')[0].value;
+      $_begin = $('#begin')[0].value;
+      $_end = $('#end')[0].value;
+
+      calendar.enable();
+      calendar.clearOptions();
+    }else{
+      $_date = null;
+      $_begin = null;
+      $_end = null;
+
+      calendar.disable();
+      calendar.clearOptions();
+    }
+
+    console.log(_date + " " + _begin + " " + _end);
+  }
 </script>
