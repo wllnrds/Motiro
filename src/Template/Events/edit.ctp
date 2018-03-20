@@ -183,8 +183,7 @@
           }
         }
       });
-    },
-    preload: true
+    }//,preload: true
   });
 
   calendar = $calendar[0].selectize;

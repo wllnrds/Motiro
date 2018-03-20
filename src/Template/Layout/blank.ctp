@@ -35,7 +35,7 @@
         <div class="col-12 col-md-12 col-lg-2">
           <!-- COMEÇO LOGO MOTIRÕ -->
           <h1 id="main-logo" class="text-center text-md-left">
-            <img src="<?= $this->Url->build('/', true) . 'img/logo_2.png' ?>" alt="" />
+            <img src="<?= $this->Url->build('/', true) . 'img/logo_1.png' ?>" alt="" />
           </h1>
           <!-- FIM LOGO MOTIRÕ -->
         </div>
