@@ -119,8 +119,24 @@
   </section>
 </section>
 
+<?php
+  $list_calendar = "";
+  if(isset($this->request->data['calendars'])){
+    if(count($this->request->data['calendars']['_ids']) > 0){
+      $list_calendar = join(', ', $this->request->data['calendars']['_ids']);
+    }
+  } else {
+    if(isset($scheduledata['calendars'])){
+      if(count($scheduledata['calendars']['_ids']) > 0){
+        $list_calendar = join(', ', $scheduledata['calendars']['_ids']);
+      }
+    }
+  }
+
+?>
+
 <script>
-  var recovering = [ <?php if(isset($this->request->data['calendars'])){ echo join(', ', $this->request->data['calendars']['_ids']); } else { if(isset($scheduledata['calendars'])){ echo join(', ', $scheduledata['calendars']['_ids']); } } ?> ];
+  var recovering = [ <?= $list_calendar ?> ];
   var calendar, $calendar;
   var $_date, $_begin, $_end;
 
@@ -175,6 +191,7 @@
         },
         success: function(res) {
           callback(res.data);
+          selectize.refreshItems();
 
           if(recovering.length > 0){
             selectize.setValue(recovering);
@@ -183,7 +200,9 @@
           }
         }
       });
-    }//,preload: true
+    },
+    preload: true,
+
   });
 
   calendar = $calendar[0].selectize;

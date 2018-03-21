@@ -58,13 +58,13 @@ class UsersController extends AppController {
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
     $user = $this->Users->get($id);
-    if($this->Users->delete($user))
-    {
-      $this->Flash->success('Usuário apagado com sucesso');
-    }
-    else
-    {
-      $this->Flash->error('Usuário não foi apagado com sucesso');
+    if($user){      
+      if($this->Users->delete($user)){
+        $this->Flash->success('Usuário apagado com sucesso');
+      }
+      else{
+        $this->Flash->error('Usuário não foi apagado com sucesso');
+      }
     }
     return $this->redirect(['action' => 'index']);
   }

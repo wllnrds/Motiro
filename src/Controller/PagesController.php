@@ -25,12 +25,6 @@ class PagesController extends AppController
         $this->set(compact('types'));
     }
 
-    public function teste(){
-      $this->loadModel('Schedules');
-      $t = $this->Schedules->isFree(4, '2018-03-16 07:00:00', '2018-03-16 09:00:00');
-      debug($t);
-    }
-
     public function isAuthorized($user) {
       if(isset($user)){
         if ($this->request->getParam('action') === 'settings') {

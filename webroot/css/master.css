@@ -6,6 +6,10 @@
 	padding: 0px;
 }
 
+html {
+	min-height: 100%;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -15,6 +19,7 @@ body {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1;
+	min-height: 100%;
 }
 
 h2, h3, h4 {
@@ -24,6 +29,17 @@ h2, h3, h4 {
 	margin: 0px;
 	padding: 0px;
 	line-height: 30px;
+}
+
+form .error-message {
+	color: #ff0000;
+	font-size: 80%;
+	padding: 5px;
+	margin-top: 5px;
+	background-color: #ff00001a;
+	border-radius: 5px;
+	text-transform: uppercase;
+	border: 1px solid #ff000040;
 }
 
 @keyframes movebg {
@@ -172,6 +188,15 @@ h2, h3, h4 {
 	max-width: 100%;
 }
 
+#clear-header {
+	background-color: #c5cfd4;
+	padding: 20px 0;
+}
+
+#clear-header #main-logo {
+	margin-bottom: 0px !important;
+}
+
 #main-menu {
 	margin: 0px;
 	padding: 0px;
@@ -270,6 +295,37 @@ h2, h3, h4 {
 
 #home-container {
 	padding-top: 15px;
+}
+
+#clear-container {
+	padding-top: 15px;
+}
+
+#login-box {
+	max-width: 300px;
+	position: absolute;
+	left: 50%;
+	top: 130px;
+	-moz-transform: translateX(-50%) translateY(0);
+	-webkit-transform: translateX(-50%) translateY(0);
+	-o-transform: translateX(-50%) translateY(0);
+	-ms-transform: translateX(-50%) translateY(0);
+	transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 575.98px) {
+	#login-box {
+		max-width: none;
+		padding: 30px;
+		position: static;
+		left: 0;
+		top: 0;
+		-moz-transform: none;
+		-webkit-transform: none;
+		-o-transform: none;
+		-ms-transform: none;
+		transform: none;
+	}
 }
 
 .table .table-description {

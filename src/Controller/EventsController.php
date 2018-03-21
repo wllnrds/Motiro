@@ -121,11 +121,13 @@ class EventsController extends AppController{
       $this->loadModel('Schedules');
       $schedule = $this->Schedules->get($schedule_id);
 
-      if($this->Schedules->delete($schedule)){
-        $this->Flash->success('Agendamento excluido com sucesso');
-      }
-      else{
-        $this->Flash->error('O agendamento não foi excluido');
+      if($schedule){
+        if($this->Schedules->delete($schedule)){
+          $this->Flash->success('Agendamento excluido com sucesso');
+        }
+        else{
+          $this->Flash->error('O agendamento não foi excluido');
+        }
       }
     }else{
       $this->Flash->error('Não há agendamento para ser excluido');

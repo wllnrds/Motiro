@@ -34,14 +34,14 @@ class TypesController extends AppController{
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
     $type = $this->Types->get($id);
-    if($this->Types->delete($type))
-    {
-      $this->Flash->success('Tipo apagado com sucesso');
-    }
-    else
-    {
-      $this->Flash->error('Tipo não foi apagado com sucesso');
-    }
+    if($type){
+      if($this->Types->delete($type)){
+        $this->Flash->success('Tipo apagado com sucesso');
+      }
+      else{
+        $this->Flash->error('Tipo não foi apagado com sucesso');
+      }
+    }    
     return $this->redirect(['controller' => 'Pages', 'action' => 'Settings']);
   }
 

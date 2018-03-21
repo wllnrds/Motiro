@@ -34,13 +34,13 @@ class RolesController extends AppController{
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
     $role = $this->Roles->get($id);
-    if($this->Roles->delete($role))
-    {
-      $this->Flash->success('Usuário apagado com sucesso');
-    }
-    else
-    {
-      $this->Flash->error('Usuário não foi apagado com sucesso');
+    if($role){      
+      if($this->Roles->delete($role)){
+        $this->Flash->success('Usuário apagado com sucesso');
+      }
+      else{
+        $this->Flash->error('Usuário não foi apagado com sucesso');
+      }
     }
     return $this->redirect(['controller' => 'Pages', 'action' => 'Settings']);
   }

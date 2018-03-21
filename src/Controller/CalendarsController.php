@@ -63,13 +63,13 @@ class CalendarsController extends AppController{
   public function remove($id=null){
     $this->request->allowMethod(['post', 'delete']);
     $calendar = $this->Calendars->get($id);
-    if($this->Calendars->delete($calendar))
-    {
-      $this->Flash->success('Calendário apagado com sucesso');
-    }
-    else
-    {
-      $this->Flash->error('Calendário não foi apagado com sucesso');
+    if($calendar){
+      if($this->Calendars->delete($calendar)){
+        $this->Flash->success('Calendário apagado com sucesso');
+      }
+      else{
+        $this->Flash->error('Calendário não foi apagado com sucesso');
+      }
     }
     return $this->redirect(['action' => 'index']);
   }
@@ -138,11 +138,13 @@ class CalendarsController extends AppController{
         $results = $schedule->calendars;
       }
       else{
-        $results = $this->Calendars->find('all', [
-          'conditions' => [ 'OR' => [
-              'name LIKE' => '%' . $name . '%',
-              'code LIKE' => '%' . $name . '%',
-          ]]])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit($limit);
+        // $results = $this->Calendars->find('all', [
+        //   'conditions' => [ 'OR' => [
+        //       'name LIKE' => '%' . $name . '%',
+        //       'code LIKE' => '%' . $name . '%',
+        //   ]]])->order(['type_id' => 'DESC', 'name' => 'ASC'])->limit($limit);
+
+        $results = [];
       }
     }
 
