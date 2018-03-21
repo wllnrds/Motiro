@@ -13,11 +13,21 @@
     <tbody>
       <?php foreach($schedules as $schedule): ?>
         <?php
+          $semana = array(
+              'Sun' => 'Domingo',
+              'Mon' => 'Segunda-Feira',
+              'Tue' => 'Terca-Feira',
+              'Wed' => 'Quarta-Feira',
+              'Thu' => 'Quinta-Feira',
+              'Fri' => 'Sexta-Feira',
+              'Sat' => 'Sábado'
+          );
+
           $begin = new DateTime($schedule->begin);
           $end = new DateTime($schedule->end);
         ?>
         <tr>
-          <td class="align-middle text-nowrap"><?= $begin->format('d') . '/' . $begin->format('m') . '/' . $begin->format('Y') ?></td>
+          <td class="align-middle text-nowrap text-center"><?= $begin->format('d') . '/' . $begin->format('m') . '/' . $begin->format('Y') ?><small class="d-block text-info"><?= $semana[$begin->format('D')] ?></small></td>
           <td class="align-middle text-center text-nowrap"><?= $begin->format('H:i') ?></td>
           <td class="align-middle text-center text-nowrap"><?= $end->format('H:i') ?></td>
           <td class="align-middle">
