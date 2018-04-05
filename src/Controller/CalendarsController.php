@@ -13,9 +13,9 @@ class CalendarsController extends AppController{
           'name LIKE' => '%' . $search . '%',
           'code LIKE' => '%' . $search . '%'
           ]]
-      ])->order(['type_id' => 'ASC', 'name' => 'ASC', 'code' => 'ASC']);
+      ])->order(['type_id' => 'ASC', 'code' => 'ASC', 'name' => 'ASC']);
     }else{
-      $calendars = $this->Calendars->find()->order(['type_id' => "ASC", 'name' => 'ASC', 'code' => 'ASC'])->all();
+      $calendars = $this->Calendars->find()->order(['type_id' => "ASC", 'code' => 'ASC', 'name' => 'ASC'])->all();
     }
     $this->set(compact('calendars'));
 
