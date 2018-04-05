@@ -32,7 +32,7 @@
           <td class="align-middle text-center text-nowrap"><?= $end->format('H:i') ?></td>
           <td class="align-middle">
             <?php foreach($schedule->calendars as $calendar): ?>
-              <a href="<?= $this->Url->build([ "controller" => "Calendars", "action" => "view", $calendar->id]) ?>" class="bullet-item b-<?= $types[$calendar->type_id] ?>" title="<?= $calendar->name ?>"><?= $calendar->name ?></a>
+              <a href="<?= $this->Url->build([ "controller" => "Calendars", "action" => "view", $calendar->id]) ?>" class="bullet-item b-<?= $types[$calendar->type_id] ?>" title="<?= $calendar->name ?>">[<?= $calendar->code ?>] <?= $calendar->name ?></a>
             <?php endforeach; ?>
           </td>
           <td class="align-middle text-nowrap">
