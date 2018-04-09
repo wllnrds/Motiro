@@ -13,7 +13,7 @@ class Type extends Entity
 
   protected function _getSlug(){
     if(isset($this->_properties['description'])){
-      return Inflector::slug($this->_properties['description']);
+      return strtolower(Inflector::slug($this->_properties['description']));
     }
   }
 }

@@ -17,13 +17,11 @@ class CalendarsController extends AppController{
     }else{
       $calendars = $this->Calendars->find()->order(['type_id' => "ASC", 'code' => 'ASC', 'name' => 'ASC'])->all();
     }
-    $this->set(compact('calendars'));
 
     $this->loadModel('Types');
-    $types = $this->Types->find()->all();
-    $_types = $this->Types->getArray();
+    $types = $this->Types->getArray();
+    $this->set(compact('calendars'));
     $this->set(compact('types'));
-    $this->set(compact('_types'));
     $this->set(compact('search'));
   }
 
@@ -130,7 +128,7 @@ class CalendarsController extends AppController{
               'name LIKE' => '%' . $name . '%',
               'code LIKE' => '%' . $name . '%',
           ]]
-      ])->order(['type_id' => 'DESC', 'name' => 'ASC', 'code' => 'ASC'])->limit($limit);
+      ])->order(['type_id' => 'DESC', 'code' => 'ASC', 'name' => 'ASC'])->limit($limit);
     }else{
       if(!empty($schedule_id)){
         $this->loadModel('Schedules');

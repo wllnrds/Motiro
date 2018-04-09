@@ -32,7 +32,7 @@
   <ul class="nav nav-pills mb-3">
     <?php foreach($types as $type): ?>
     <li class="nav-item">
-      <a class="nav-link" href="#calendar-<?= $type->slug ?>" data-toggle="tab"><?= $type->description ?></a>
+      <a class="nav-link" href="#calendar-<?= $type->slug ?>" data-toggle="tab"><?= $type->description ?> (<?= $type->count ?>)</a>
     </li>
     <?php endforeach; ?>
   </ul>
@@ -54,7 +54,7 @@
               <tr>
                 <th class="text-nowrap" style="width:100px;"><?php echo $calendar->code; ?></th>
                 <td>
-                  <i class="bullet-item b-<?= $_types[$calendar->type_id] ?>"><?= $type->description ?></i> <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
+                  <i class="bullet-item b-<?= $types[$calendar->type_id]->slug ?>"><?= $type->description ?></i> <a href="<?= $this->Url->build(["controller" => "Calendars", "action" => "view", $calendar->id]) ?>"><?= $calendar->name ?></a>
                   <p class="table-description"><?= $calendar->description ?></p>
                 </td>
                 <td class="text-nowrap text-right" style="width:200px;">
