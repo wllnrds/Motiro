@@ -149,7 +149,7 @@ class CalendarsController extends AppController{
     $types = $this->Types->getArray();
     $resultsArr = [];
     foreach ($results as $result) {
-      $_class = $types[$result['type_id']];
+      $_class = $types[$result['type_id']]->slug;
 
       if(isset($this->request->query['date'])){
         $isfree = $this->Schedules->isFree($result['id'], $begin, $end);
